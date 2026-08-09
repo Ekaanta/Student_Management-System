@@ -159,10 +159,9 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
-
-app.UseRouting();
 app.UseCors("AllowAll");
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
