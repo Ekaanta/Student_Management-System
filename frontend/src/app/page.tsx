@@ -11,10 +11,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-indigo-500/20">
-              Edu
+              OP
             </div>
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-              AssignmentHub
+              OnnoRokom Projukti
             </span>
           </div>
 
@@ -38,8 +38,8 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 py-20 text-center flex-1 flex flex-col items-center justify-center">
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-slate-100 to-slate-400 max-w-4xl leading-tight mb-8">
-          Seamless Assignment & Submission Management
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-slate-100 to-slate-400 max-w-5xl leading-tight mb-8">
+          OnnoRokom Projukti Student Management Platform
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-400 max-w-2xl leading-relaxed mb-12">
@@ -106,7 +106,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-slate-800/80 py-8 px-6 text-center text-slate-500 text-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-center">
-          <p>© 2026 Role-Based Assignment & Submission Management System. Built with ASP.NET Core & Next.js.</p>
+          <p>© 2026 OnnoRokom Projukti Student Management Platform. Built with ASP.NET Core & Next.js.</p>
         </div>
       </footer>
     </main>

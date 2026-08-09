@@ -45,11 +45,11 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
         <div>
           <div className="flex items-center space-x-3 mb-10">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-500 via-indigo-500 to-pink-500 flex items-center justify-center font-bold text-white shadow-lg shadow-purple-500/25">
-              Edu
+              OP
             </div>
             <div>
               <span className="text-lg font-extrabold text-slate-900 dark:text-white">
-                AssignmentHub
+                OnnoRokom Projukti
               </span>
               <span className="block text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Teacher Portal</span>
             </div>

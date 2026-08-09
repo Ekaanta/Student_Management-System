@@ -44,11 +44,11 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
         <div>
           <div className="flex items-center space-x-3 mb-10">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-pink-500/25">
-              Edu
+              OP
             </div>
             <div>
               <span className="text-lg font-extrabold text-slate-900 dark:text-white">
-                AssignmentHub
+                OnnoRokom Projukti
               </span>
               <span className="block text-[10px] font-bold uppercase tracking-wider text-pink-600 dark:text-pink-400">Student Portal</span>
             </div>

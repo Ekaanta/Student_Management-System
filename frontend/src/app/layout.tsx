@@ -4,8 +4,8 @@ import { AuthProvider } from "@/lib/auth-context";
 import { ThemeProvider } from "@/lib/theme-context";
 
 export const metadata: Metadata = {
-  title: "Role-Based Assignment & Submission System",
-  description: "Academic Assignment Management Platform",
+  title: "OnnoRokom Projukti Student Management Platform",
+  description: "OnnoRokom Projukti Student Management Platform",
 };
 
 export default function RootLayout({
