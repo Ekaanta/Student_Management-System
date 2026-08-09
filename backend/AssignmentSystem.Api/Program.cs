@@ -27,23 +27,9 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .WriteTo.Console()
     .ReadFrom.Configuration(ctx.Configuration));
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var isNpgsqlConfigured = !string.IsNullOrWhiteSpace(connectionString) 
-                         && !connectionString.Contains("<REMOTE_HOST>") 
-                         && !connectionString.Contains("<REMOTE_USERNAME>") 
-                         && !connectionString.Contains("localhost") 
-                         && !connectionString.Contains("127.0.0.1");
-
-if (isNpgsqlConfigured)
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseNpgsql(connectionString));
-}
-else
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseInMemoryDatabase("AssignmentSystemDb"));
-}
+// Primary Relational DbContext (InMemory Cache + MongoDB Atlas Real-Time Dual Sync)
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("AssignmentSystemDb"));
 
 // MongoDB Atlas Configuration & Services
 var mongoConnStr = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING")
@@ -170,18 +156,6 @@ using (var scope = app.Services.CreateScope())
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
     var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    if (dbContext.Database.IsRelational())
-    {
-        try
-        {
-            await dbContext.Database.MigrateAsync();
-        }
-        catch (Exception ex)
-        {
-            logger.LogWarning(ex, "Relational DB migration skipped.");
-        }
-    }
 
     await DbSeeder.SeedAsync(dbContext, passwordHasher);
 
