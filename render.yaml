@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: student-management-backend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: singapore
+    envVars:
+      - key: MONGODB_CONNECTION_STRING
+        value: mongodb+srv://ekantabanik_db_user:Qh2k8Zh4WkEcwPLP@cluster0.bzt8ohz.mongodb.net/?appName=Cluster0
+      - key: MONGODB_DATABASE_NAME
+        value: assignment_management
+      - key: Jwt__Secret
+        value: SuperSecretKeyForJwtTokenGenerationThatIsAtLeast32BytesLong!
+      - key: Jwt__Issuer
+        value: AssignmentSystem
+      - key: Jwt__Audience
+        value: AssignmentSystemApp
