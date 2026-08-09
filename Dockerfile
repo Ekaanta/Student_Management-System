@@ -27,6 +27,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
+# Environment settings to prevent inotify file watcher limit crash in Linux containers
+ENV DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE=false
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+
 # Set default ASPNETCORE_URLS to bind to 8080 (Render detects HTTP traffic automatically)
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080

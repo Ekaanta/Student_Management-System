@@ -15,6 +15,13 @@ using MongoDB.Driver;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.ConfigureAppConfiguration((hostingContext, configBuilder) =>
+{
+    configBuilder.Sources.Clear();
+    configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                 .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: false)
+                 .AddEnvironmentVariables();
+});
 
 builder.Host.UseSerilog((ctx, lc) => lc
     .WriteTo.Console()
