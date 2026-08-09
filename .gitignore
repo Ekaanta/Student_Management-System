@@ -29,6 +29,8 @@ setup_postgres_service.ps1
 *.bat
 *.ps1
 generate_qa_pdf_report.py
+export_mongodb_database.py
+mongodb_backup/
 
 # Node / Next.js
 node_modules/
