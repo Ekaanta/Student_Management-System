@@ -4,27 +4,23 @@ using AssignmentSystem.Application.Interfaces;
 using AssignmentSystem.Domain.Entities;
 using AssignmentSystem.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver;
 
 namespace AssignmentSystem.Application.Services;
 
 public class AuthService : IAuthService
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMongoDbContext? _mongoDbContext;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtTokenGenerator _tokenGenerator;
 
     public AuthService(
         IApplicationDbContext dbContext,
         IPasswordHasher passwordHasher,
-        IJwtTokenGenerator tokenGenerator,
-        IMongoDbContext? mongoDbContext = null)
+        IJwtTokenGenerator tokenGenerator)
     {
         _dbContext = dbContext;
         _passwordHasher = passwordHasher;
         _tokenGenerator = tokenGenerator;
-        _mongoDbContext = mongoDbContext;
     }
 
     public async Task<AuthResponse> LoginAsync(LoginRequest request, CancellationToken cancellationToken = default)
@@ -41,19 +37,6 @@ public class AuthService : IAuthService
         catch
         {
             // Ignore DbContext query error
-        }
-
-        if (user == null && _mongoDbContext != null)
-        {
-            try
-            {
-                var mongoFilter = Builders<User>.Filter.Eq(u => u.Email, normalizedEmail);
-                user = await _mongoDbContext.Users.Find(mongoFilter).FirstOrDefaultAsync(cancellationToken);
-            }
-            catch
-            {
-                // Ignore Mongo DNS / SRV lookup error in cloud containers
-            }
         }
 
         // Auto-seed default accounts on demand if not found in database stores
@@ -88,7 +71,35 @@ public class AuthService : IAuthService
         return new AuthResponse(token, user.Id, user.Email, user.FirstName, user.LastName, user.Role, user.ProfilePictureUrl);
     }
 
-    public async Task<UserDetailDto> GetProfileAsync(Guid userId, CancellationToken cancellationToken = default)
+    public async Task<AuthResponse> RegisterAsync(RegisterRequest request, CancellationToken cancellationToken = default)
+    {
+        var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+        var existingUser = await _dbContext.Users
+            .AnyAsync(u => u.Email.ToLower() == normalizedEmail, cancellationToken);
+
+        if (existingUser)
+        {
+            throw new AppException("User with this email already exists. Try signing in with password 'Password123!' or use a different email.", 409);
+        }
+
+        var user = new User
+        {
+            Email = normalizedEmail,
+            PasswordHash = _passwordHasher.HashPassword(request.Password),
+            FirstName = request.FirstName.Trim(),
+            LastName = request.LastName.Trim(),
+            Role = request.Role,
+            IsActive = true
+        };
+
+        _dbContext.Users.Add(user);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        var token = _tokenGenerator.GenerateToken(user);
+        return new AuthResponse(token, user.Id, user.Email, user.FirstName, user.LastName, user.Role, user.ProfilePictureUrl);
+    }
+
+    public async Task<UserProfileDto> GetProfileAsync(Guid userId, CancellationToken cancellationToken = default)
     {
         User? user = null;
 
@@ -101,20 +112,6 @@ public class AuthService : IAuthService
         catch
         {
             // Ignore DbContext error
-        }
-
-        if (user == null && _mongoDbContext != null)
-        {
-            try
-            {
-                user = await _mongoDbContext.Users
-                    .Find(Builders<User>.Filter.Eq(u => u.Id, userId))
-                    .FirstOrDefaultAsync(cancellationToken);
-            }
-            catch
-            {
-                // Ignore Mongo DNS / SRV lookup error
-            }
         }
 
         if (user == null)
@@ -132,19 +129,18 @@ public class AuthService : IAuthService
             throw new NotFoundException("User", userId);
         }
 
-        return new UserDetailDto(
+        return new UserProfileDto(
             user.Id,
             user.Email,
             user.FirstName,
             user.LastName,
             user.Role,
-            user.IsActive,
             user.ProfilePictureUrl,
             user.CreatedAtUtc
         );
     }
 
-    public async Task<UserDetailDto> UpdateProfileAsync(Guid userId, UpdateProfileRequest request, CancellationToken cancellationToken = default)
+    public async Task<AuthResponse> UpdateProfileAsync(Guid userId, UpdateProfileRequest request, CancellationToken cancellationToken = default)
     {
         User? user = null;
         try
@@ -179,15 +175,7 @@ public class AuthService : IAuthService
         }
         catch { }
 
-        return new UserDetailDto(
-            user.Id,
-            user.Email,
-            user.FirstName,
-            user.LastName,
-            user.Role,
-            user.IsActive,
-            user.ProfilePictureUrl,
-            user.CreatedAtUtc
-        );
+        var token = _tokenGenerator.GenerateToken(user);
+        return new AuthResponse(token, user.Id, user.Email, user.FirstName, user.LastName, user.Role, user.ProfilePictureUrl);
     }
 }

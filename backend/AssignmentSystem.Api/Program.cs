@@ -61,7 +61,7 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     }
 });
 
-builder.Services.AddScoped<IMongoDbContext?>(sp =>
+builder.Services.AddScoped<IMongoDbContext>(sp =>
 {
     try
     {
@@ -71,7 +71,7 @@ builder.Services.AddScoped<IMongoDbContext?>(sp =>
     }
     catch
     {
-        return null;
+        return null!;
     }
 });
 
