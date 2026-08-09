@@ -9,6 +9,7 @@ using AssignmentSystem.Infrastructure.Identity;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
@@ -31,17 +32,14 @@ builder.Host.UseSerilog((ctx, lc) => lc
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("AssignmentSystemDb"));
 
-// MongoDB Atlas Configuration & Services
+// MongoDB Atlas Configuration & Services with DI Safeguards
 var mongoConnStr = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING")
-    ?? builder.Configuration["MongoDBSettings:ConnectionString"];
+    ?? builder.Configuration["MongoDBSettings:ConnectionString"]
+    ?? "mongodb://127.0.0.1:27017";
+
 var mongoDbName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME")
     ?? builder.Configuration["MongoDBSettings:DatabaseName"]
     ?? "assignment_management";
-
-if (string.IsNullOrWhiteSpace(mongoConnStr) || mongoConnStr.Contains("<db_password>") || mongoConnStr.StartsWith("mongodb+srv://"))
-{
-    mongoConnStr = "mongodb://ekantabanik_db_user:Qh2k8Zh4WkEcwPLP@cluster0-shard-00-00.bzt8ohz.mongodb.net:27017,cluster0-shard-00-01.bzt8ohz.mongodb.net:27017,cluster0-shard-00-02.bzt8ohz.mongodb.net:27017/assignment_management?ssl=true&replicaSet=atlas-13bzt8-shard-0&authSource=admin&retryWrites=true&w=majority";
-}
 
 builder.Services.Configure<MongoDBSettings>(options =>
 {
@@ -49,9 +47,34 @@ builder.Services.Configure<MongoDBSettings>(options =>
     options.DatabaseName = mongoDbName;
 });
 
-builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongoConnStr));
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{
+    try
+    {
+        var settings = MongoClientSettings.FromConnectionString(mongoConnStr);
+        settings.ServerSelectionTimeout = TimeSpan.FromSeconds(2);
+        return new MongoClient(settings);
+    }
+    catch
+    {
+        return new MongoClient("mongodb://127.0.0.1:27017");
+    }
+});
 
-builder.Services.AddScoped<IMongoDbContext, MongoDbContext>();
+builder.Services.AddScoped<IMongoDbContext?>(sp =>
+{
+    try
+    {
+        var client = sp.GetRequiredService<IMongoClient>();
+        var settingsOptions = sp.GetRequiredService<IOptions<MongoDBSettings>>();
+        return new MongoDbContext(client, settingsOptions);
+    }
+    catch
+    {
+        return null;
+    }
+});
+
 builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
@@ -161,9 +184,12 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        var mongoDbContext = scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
-        await MongoDbSeeder.SeedAsync(mongoDbContext, passwordHasher, dbContext);
-        logger.LogInformation("Successfully connected, initialized indexes, and synced data to MongoDB database '{DatabaseName}'.", mongoDbName);
+        var mongoDbContext = scope.ServiceProvider.GetService<IMongoDbContext>();
+        if (mongoDbContext != null)
+        {
+            await MongoDbSeeder.SeedAsync(mongoDbContext, passwordHasher, dbContext);
+            logger.LogInformation("Successfully initialized MongoDB database '{DatabaseName}'.", mongoDbName);
+        }
     }
     catch (Exception ex)
     {
