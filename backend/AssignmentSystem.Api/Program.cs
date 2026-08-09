@@ -28,8 +28,16 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .ReadFrom.Configuration(ctx.Configuration));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+if (!string.IsNullOrWhiteSpace(connectionString) && !connectionString.Contains("<REMOTE_HOST>"))
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(connectionString));
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseInMemoryDatabase("AssignmentSystemDb"));
+}
 
 // MongoDB Atlas Configuration & Services
 var mongoConnStr = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING")
@@ -38,21 +46,18 @@ var mongoDbName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME")
     ?? builder.Configuration["MongoDBSettings:DatabaseName"]
     ?? "assignment_management";
 
+if (string.IsNullOrWhiteSpace(mongoConnStr) || mongoConnStr.Contains("<db_password>"))
+{
+    mongoConnStr = "mongodb+srv://ekantabanik_db_user:Qh2k8Zh4WkEcwPLP@cluster0.bzt8ohz.mongodb.net/?appName=Cluster0";
+}
+
 builder.Services.Configure<MongoDBSettings>(options =>
 {
-    options.ConnectionString = mongoConnStr ?? string.Empty;
+    options.ConnectionString = mongoConnStr;
     options.DatabaseName = mongoDbName;
 });
 
-builder.Services.AddSingleton<IMongoClient>(sp =>
-{
-    var conn = mongoConnStr ?? string.Empty;
-    if (string.IsNullOrWhiteSpace(conn) || conn.Contains("<db_password>"))
-    {
-        return new MongoClient("mongodb://localhost:27017");
-    }
-    return new MongoClient(conn);
-});
+builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongoConnStr));
 
 builder.Services.AddScoped<IMongoDbContext, MongoDbContext>();
 builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
@@ -157,37 +162,32 @@ app.UseSwaggerUI(c =>
 using (var scope = app.Services.CreateScope())
 {
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    var connStr = builder.Configuration.GetConnectionString("DefaultConnection");
     var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-    if (!string.IsNullOrWhiteSpace(connStr) && !connStr.Contains("<REMOTE_HOST>") && !connStr.Contains("localhost") && !connStr.Contains("127.0.0.1"))
+    if (dbContext.Database.IsRelational())
     {
         try
         {
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             await dbContext.Database.MigrateAsync();
-            await DbSeeder.SeedAsync(dbContext, passwordHasher);
-            logger.LogInformation("Successfully connected, migrated, and seeded primary relational database.");
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to connect to primary relational database.");
+            logger.LogWarning(ex, "Relational DB migration skipped.");
         }
     }
 
-    if (!string.IsNullOrWhiteSpace(mongoConnStr) && !mongoConnStr.Contains("<db_password>"))
+    await DbSeeder.SeedAsync(dbContext, passwordHasher);
+
+    try
     {
-        try
-        {
-            var mongoDbContext = scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
-            var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            await MongoDbSeeder.SeedAsync(mongoDbContext, passwordHasher, dbContext);
-            logger.LogInformation("Successfully connected, initialized indexes, and synced data to MongoDB database '{DatabaseName}'.", mongoDbName);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to connect or initialize MongoDB Atlas database.");
-        }
+        var mongoDbContext = scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
+        await MongoDbSeeder.SeedAsync(mongoDbContext, passwordHasher, dbContext);
+        logger.LogInformation("Successfully connected, initialized indexes, and synced data to MongoDB database '{DatabaseName}'.", mongoDbName);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Failed to connect or initialize MongoDB Atlas database.");
     }
 }
 
