@@ -55,7 +55,6 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 });
 
 builder.Services.AddScoped<IMongoDbContext, MongoDbContext>();
-
 builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
@@ -96,7 +95,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.SetIsOriginAllowed(_ => true)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
@@ -142,54 +141,52 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+app.UseCors("AllowFrontend");
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Assignment System API v1");
-    });
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Assignment System API v1");
+    c.RoutePrefix = "swagger";
+});
 
-    using (var scope = app.Services.CreateScope())
-    {
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        var connStr = builder.Configuration.GetConnectionString("DefaultConnection");
-        var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+using (var scope = app.Services.CreateScope())
+{
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    var connStr = builder.Configuration.GetConnectionString("DefaultConnection");
+    var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
 
-        if (!string.IsNullOrWhiteSpace(connStr) && !connStr.Contains("<REMOTE_HOST>") && !connStr.Contains("localhost") && !connStr.Contains("127.0.0.1"))
+    if (!string.IsNullOrWhiteSpace(connStr) && !connStr.Contains("<REMOTE_HOST>") && !connStr.Contains("localhost") && !connStr.Contains("127.0.0.1"))
+    {
+        try
         {
-            try
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                await dbContext.Database.MigrateAsync();
-                await DbSeeder.SeedAsync(dbContext, passwordHasher);
-                logger.LogInformation("Successfully connected, migrated, and seeded primary relational database.");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Failed to connect to primary relational database.");
-            }
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            await dbContext.Database.MigrateAsync();
+            await DbSeeder.SeedAsync(dbContext, passwordHasher);
+            logger.LogInformation("Successfully connected, migrated, and seeded primary relational database.");
         }
-
-        if (!string.IsNullOrWhiteSpace(mongoConnStr) && !mongoConnStr.Contains("<db_password>"))
+        catch (Exception ex)
         {
-            try
-            {
-                var mongoDbContext = scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
-                var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-                await MongoDbSeeder.SeedAsync(mongoDbContext, passwordHasher, dbContext);
-                logger.LogInformation("Successfully connected, initialized indexes, and synced data to MongoDB database '{DatabaseName}'.", mongoDbName);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Failed to connect or initialize MongoDB Atlas database.");
-            }
+            logger.LogError(ex, "Failed to connect to primary relational database.");
+        }
+    }
+
+    if (!string.IsNullOrWhiteSpace(mongoConnStr) && !mongoConnStr.Contains("<db_password>"))
+    {
+        try
+        {
+            var mongoDbContext = scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
+            var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            await MongoDbSeeder.SeedAsync(mongoDbContext, passwordHasher, dbContext);
+            logger.LogInformation("Successfully connected, initialized indexes, and synced data to MongoDB database '{DatabaseName}'.", mongoDbName);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to connect or initialize MongoDB Atlas database.");
         }
     }
 }
 
-app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
