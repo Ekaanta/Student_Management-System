@@ -35,8 +35,7 @@ public class GlobalExceptionHandlerMiddleware
 
         int statusCode = (int)HttpStatusCode.InternalServerError;
         string title = "An error occurred while processing your request.";
-        IEnumerable<string>? errors = null;
-
+        
         if (exception is AppException appEx)
         {
             statusCode = appEx.StatusCode;
@@ -47,16 +46,17 @@ public class GlobalExceptionHandlerMiddleware
         {
             statusCode = valEx.StatusCode;
             title = valEx.Message;
-            errors = valEx.Errors.SelectMany(kvp => kvp.Value.Select(e => $"{kvp.Key}: {e}"));
         }
 
         context.Response.StatusCode = statusCode;
+
+        var fullTrace = $"{exception.GetType().FullName}: {exception.Message} | StackTrace: {exception.StackTrace} | Inner: {exception.InnerException}";
 
         var response = new ApiResponse<object>(
             Success: false,
             Message: title,
             Data: null,
-            Errors: errors ?? new[] { exception.ToString() }
+            Errors: new[] { fullTrace }
         );
 
         var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
