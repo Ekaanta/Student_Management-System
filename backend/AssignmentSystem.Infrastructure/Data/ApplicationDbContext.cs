@@ -52,103 +52,110 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     private async Task SyncChangesToMongoAtlasAsync(List<TrackedEntityState> trackedStates, CancellationToken cancellationToken)
     {
-        foreach (var item in trackedStates)
+        try
         {
-            try
+            foreach (var item in trackedStates)
             {
-                switch (item.Entity)
+                try
                 {
-                    case User u:
-                        var userFilter = Builders<User>.Filter.Eq(x => x.Email, u.Email);
-                        if (item.State == EntityState.Deleted)
-                        {
-                            await _mongoDbContext.Users.DeleteOneAsync(userFilter, cancellationToken);
-                        }
-                        else
-                        {
-                            await _mongoDbContext.Users.ReplaceOneAsync(userFilter, u, new ReplaceOptions { IsUpsert = true }, cancellationToken);
-                        }
-                        break;
+                    switch (item.Entity)
+                    {
+                        case User u:
+                            var userFilter = Builders<User>.Filter.Eq(x => x.Email, u.Email);
+                            if (item.State == EntityState.Deleted)
+                            {
+                                await _mongoDbContext!.Users.DeleteOneAsync(userFilter, cancellationToken);
+                            }
+                            else
+                            {
+                                await _mongoDbContext!.Users.ReplaceOneAsync(userFilter, u, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                            }
+                            break;
 
-                    case SchoolClass c:
-                        var classFilter = Builders<SchoolClass>.Filter.Eq(x => x.Code, c.Code);
-                        if (item.State == EntityState.Deleted)
-                        {
-                            await _mongoDbContext.SchoolClasses.DeleteOneAsync(classFilter, cancellationToken);
-                        }
-                        else
-                        {
-                            await _mongoDbContext.SchoolClasses.ReplaceOneAsync(classFilter, c, new ReplaceOptions { IsUpsert = true }, cancellationToken);
-                        }
-                        break;
+                        case SchoolClass c:
+                            var classFilter = Builders<SchoolClass>.Filter.Eq(x => x.Code, c.Code);
+                            if (item.State == EntityState.Deleted)
+                            {
+                                await _mongoDbContext!.SchoolClasses.DeleteOneAsync(classFilter, cancellationToken);
+                            }
+                            else
+                            {
+                                await _mongoDbContext!.SchoolClasses.ReplaceOneAsync(classFilter, c, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                            }
+                            break;
 
-                    case Subject s:
-                        var subjectFilter = Builders<Subject>.Filter.Eq(x => x.Code, s.Code);
-                        if (item.State == EntityState.Deleted)
-                        {
-                            await _mongoDbContext.Subjects.DeleteOneAsync(subjectFilter, cancellationToken);
-                        }
-                        else
-                        {
-                            await _mongoDbContext.Subjects.ReplaceOneAsync(subjectFilter, s, new ReplaceOptions { IsUpsert = true }, cancellationToken);
-                        }
-                        break;
+                        case Subject s:
+                            var subjectFilter = Builders<Subject>.Filter.Eq(x => x.Code, s.Code);
+                            if (item.State == EntityState.Deleted)
+                            {
+                                await _mongoDbContext!.Subjects.DeleteOneAsync(subjectFilter, cancellationToken);
+                            }
+                            else
+                            {
+                                await _mongoDbContext!.Subjects.ReplaceOneAsync(subjectFilter, s, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                            }
+                            break;
 
-                    case ClassSubject cs:
-                        var csFilter = Builders<ClassSubject>.Filter.Eq(x => x.Id, cs.Id);
-                        if (item.State == EntityState.Deleted)
-                        {
-                            await _mongoDbContext.ClassSubjects.DeleteOneAsync(csFilter, cancellationToken);
-                        }
-                        else
-                        {
-                            await _mongoDbContext.ClassSubjects.ReplaceOneAsync(csFilter, cs, new ReplaceOptions { IsUpsert = true }, cancellationToken);
-                        }
-                        break;
+                        case ClassSubject cs:
+                            var csFilter = Builders<ClassSubject>.Filter.Eq(x => x.Id, cs.Id);
+                            if (item.State == EntityState.Deleted)
+                            {
+                                await _mongoDbContext!.ClassSubjects.DeleteOneAsync(csFilter, cancellationToken);
+                            }
+                            else
+                            {
+                                await _mongoDbContext!.ClassSubjects.ReplaceOneAsync(csFilter, cs, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                            }
+                            break;
 
-                    case ClassEnrollment ce:
-                        var ceFilter = Builders<ClassEnrollment>.Filter.Eq(x => x.Id, ce.Id);
-                        if (item.State == EntityState.Deleted)
-                        {
-                            await _mongoDbContext.ClassEnrollments.DeleteOneAsync(ceFilter, cancellationToken);
-                        }
-                        else
-                        {
-                            await _mongoDbContext.ClassEnrollments.ReplaceOneAsync(ceFilter, ce, new ReplaceOptions { IsUpsert = true }, cancellationToken);
-                        }
-                        break;
+                        case ClassEnrollment ce:
+                            var ceFilter = Builders<ClassEnrollment>.Filter.Eq(x => x.Id, ce.Id);
+                            if (item.State == EntityState.Deleted)
+                            {
+                                await _mongoDbContext!.ClassEnrollments.DeleteOneAsync(ceFilter, cancellationToken);
+                            }
+                            else
+                            {
+                                await _mongoDbContext!.ClassEnrollments.ReplaceOneAsync(ceFilter, ce, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                            }
+                            break;
 
-                    case Assignment a:
-                        var assignFilter = Builders<Assignment>.Filter.Eq(x => x.Id, a.Id);
-                        if (item.State == EntityState.Deleted)
-                        {
-                            await _mongoDbContext.Assignments.DeleteOneAsync(assignFilter, cancellationToken);
-                        }
-                        else
-                        {
-                            await _mongoDbContext.Assignments.ReplaceOneAsync(assignFilter, a, new ReplaceOptions { IsUpsert = true }, cancellationToken);
-                        }
-                        break;
+                        case Assignment a:
+                            var assignFilter = Builders<Assignment>.Filter.Eq(x => x.Id, a.Id);
+                            if (item.State == EntityState.Deleted)
+                            {
+                                await _mongoDbContext!.Assignments.DeleteOneAsync(assignFilter, cancellationToken);
+                            }
+                            else
+                            {
+                                await _mongoDbContext!.Assignments.ReplaceOneAsync(assignFilter, a, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                            }
+                            break;
 
-                    case Submission sub:
-                        var subFilter = Builders<Submission>.Filter.Eq(x => x.Id, sub.Id);
-                        if (item.State == EntityState.Deleted)
-                        {
-                            await _mongoDbContext.Submissions.DeleteOneAsync(subFilter, cancellationToken);
-                        }
-                        else
-                        {
-                            await _mongoDbContext.Submissions.ReplaceOneAsync(subFilter, sub, new ReplaceOptions { IsUpsert = true }, cancellationToken);
-                        }
-                        break;
+                        case Submission sub:
+                            var subFilter = Builders<Submission>.Filter.Eq(x => x.Id, sub.Id);
+                            if (item.State == EntityState.Deleted)
+                            {
+                                await _mongoDbContext!.Submissions.DeleteOneAsync(subFilter, cancellationToken);
+                            }
+                            else
+                            {
+                                await _mongoDbContext!.Submissions.ReplaceOneAsync(subFilter, sub, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+                            }
+                            break;
+                    }
+                }
+                catch
+                {
+                    // Ignore individual entity sync error
                 }
             }
-            catch
-            {
-                // Non-blocking catch to ensure API calls complete reliably
-            }
+        }
+        catch
+        {
+            // Ignore MongoDB sync error
         }
     }
-
-    private record TrackedEntityState(object Entity, EntityState State);
 }
+
+internal record TrackedEntityState(object Entity, EntityState State);

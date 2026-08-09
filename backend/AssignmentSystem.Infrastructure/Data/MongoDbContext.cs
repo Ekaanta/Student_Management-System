@@ -110,49 +110,70 @@ public class MongoDbContext : IMongoDbContext
 
     public async Task EnsureIndexesCreatedAsync(CancellationToken cancellationToken = default)
     {
-        // 1. users collection - Unique Email index
-        var userEmailIndexKeys = Builders<User>.IndexKeys.Ascending(u => u.Email);
-        var userEmailIndexModel = new CreateIndexModel<User>(userEmailIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_users_email" });
-        await Users.Indexes.CreateOneAsync(userEmailIndexModel, cancellationToken: cancellationToken);
+        try
+        {
+            var userEmailIndexKeys = Builders<User>.IndexKeys.Ascending(u => u.Email);
+            var userEmailIndexModel = new CreateIndexModel<User>(userEmailIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_users_email" });
+            await Users.Indexes.CreateOneAsync(userEmailIndexModel, cancellationToken: cancellationToken);
+        }
+        catch { }
 
-        // 2. classes collection - Unique Code index
-        var classCodeIndexKeys = Builders<SchoolClass>.IndexKeys.Ascending(c => c.Code);
-        var classCodeIndexModel = new CreateIndexModel<SchoolClass>(classCodeIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_classes_code" });
-        await SchoolClasses.Indexes.CreateOneAsync(classCodeIndexModel, cancellationToken: cancellationToken);
+        try
+        {
+            var classCodeIndexKeys = Builders<SchoolClass>.IndexKeys.Ascending(c => c.Code);
+            var classCodeIndexModel = new CreateIndexModel<SchoolClass>(classCodeIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_classes_code" });
+            await SchoolClasses.Indexes.CreateOneAsync(classCodeIndexModel, cancellationToken: cancellationToken);
+        }
+        catch { }
 
-        // 3. subjects collection - Unique Code index
-        var subjectCodeIndexKeys = Builders<Subject>.IndexKeys.Ascending(s => s.Code);
-        var subjectCodeIndexModel = new CreateIndexModel<Subject>(subjectCodeIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_subjects_code" });
-        await Subjects.Indexes.CreateOneAsync(subjectCodeIndexModel, cancellationToken: cancellationToken);
+        try
+        {
+            var subjectCodeIndexKeys = Builders<Subject>.IndexKeys.Ascending(s => s.Code);
+            var subjectCodeIndexModel = new CreateIndexModel<Subject>(subjectCodeIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_subjects_code" });
+            await Subjects.Indexes.CreateOneAsync(subjectCodeIndexModel, cancellationToken: cancellationToken);
+        }
+        catch { }
 
-        // 4. teacherClassSubjects collection - Unique compound index (TeacherId + ClassId + SubjectId)
-        var tcsIndexKeys = Builders<ClassSubject>.IndexKeys
-            .Ascending(cs => cs.TeacherId)
-            .Ascending(cs => cs.ClassId)
-            .Ascending(cs => cs.SubjectId);
-        var tcsIndexModel = new CreateIndexModel<ClassSubject>(tcsIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_teacher_class_subject" });
-        await ClassSubjects.Indexes.CreateOneAsync(tcsIndexModel, cancellationToken: cancellationToken);
+        try
+        {
+            var tcsIndexKeys = Builders<ClassSubject>.IndexKeys
+                .Ascending(cs => cs.TeacherId)
+                .Ascending(cs => cs.ClassId)
+                .Ascending(cs => cs.SubjectId);
+            var tcsIndexModel = new CreateIndexModel<ClassSubject>(tcsIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_teacher_class_subject" });
+            await ClassSubjects.Indexes.CreateOneAsync(tcsIndexModel, cancellationToken: cancellationToken);
+        }
+        catch { }
 
-        // 5. studentClasses collection - Unique compound index (StudentId + ClassId)
-        var scIndexKeys = Builders<ClassEnrollment>.IndexKeys
-            .Ascending(ce => ce.StudentId)
-            .Ascending(ce => ce.ClassId);
-        var scIndexModel = new CreateIndexModel<ClassEnrollment>(scIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_student_class" });
-        await ClassEnrollments.Indexes.CreateOneAsync(scIndexModel, cancellationToken: cancellationToken);
+        try
+        {
+            var scIndexKeys = Builders<ClassEnrollment>.IndexKeys
+                .Ascending(ce => ce.StudentId)
+                .Ascending(ce => ce.ClassId);
+            var scIndexModel = new CreateIndexModel<ClassEnrollment>(scIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_student_class" });
+            await ClassEnrollments.Indexes.CreateOneAsync(scIndexModel, cancellationToken: cancellationToken);
+        }
+        catch { }
 
-        // 6. submissions collection - Unique compound index (AssignmentId + StudentId)
-        var subIndexKeys = Builders<Submission>.IndexKeys
-            .Ascending(s => s.AssignmentId)
-            .Ascending(s => s.StudentId);
-        var subIndexModel = new CreateIndexModel<Submission>(subIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_assignment_student_submission" });
-        await Submissions.Indexes.CreateOneAsync(subIndexModel, cancellationToken: cancellationToken);
+        try
+        {
+            var subIndexKeys = Builders<Submission>.IndexKeys
+                .Ascending(s => s.AssignmentId)
+                .Ascending(s => s.StudentId);
+            var subIndexModel = new CreateIndexModel<Submission>(subIndexKeys, new CreateIndexOptions { Unique = true, Name = "ux_assignment_student_submission" });
+            await Submissions.Indexes.CreateOneAsync(subIndexModel, cancellationToken: cancellationToken);
+        }
+        catch { }
 
-        // 7. assignments collection - Compound index (TeacherId, ClassSubjectId, DueDateUtc)
-        var assignIndexKeys = Builders<Assignment>.IndexKeys
-            .Ascending(a => a.TeacherId)
-            .Ascending(a => a.ClassSubjectId)
-            .Ascending(a => a.DueDateUtc);
-        var assignIndexModel = new CreateIndexModel<Assignment>(assignIndexKeys, new CreateIndexOptions { Name = "ix_assignments_teacher_class_deadline" });
-        await Assignments.Indexes.CreateOneAsync(assignIndexModel, cancellationToken: cancellationToken);
+        try
+        {
+            var assignIndexKeys = Builders<Assignment>.IndexKeys
+                .Ascending(a => a.TeacherId)
+                .Ascending(a => a.ClassSubjectId)
+                .Ascending(a => a.DueDateUtc);
+            var assignIndexModel = new CreateIndexModel<Assignment>(assignIndexKeys, new CreateIndexOptions { Name = "ix_assignments_teacher_class_deadline" });
+            await Assignments.Indexes.CreateOneAsync(assignIndexModel, cancellationToken: cancellationToken);
+        }
+        catch { }
     }
 }
