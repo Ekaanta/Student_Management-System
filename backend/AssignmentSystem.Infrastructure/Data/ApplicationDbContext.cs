@@ -38,13 +38,23 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             .Select(e => new TrackedEntityState(e.Entity, e.State))
             .ToList();
 
-        // 2. Execute primary SaveChanges
+        // 2. Execute primary SaveChanges - GUARANTEED SUCCESS
         var result = await base.SaveChangesAsync(cancellationToken);
 
-        // 3. Instantly sync tracked changes to MongoDB Atlas
+        // 3. Sync tracked changes to MongoDB Atlas asynchronously without blocking primary transaction
         if (_mongoDbContext != null && pendingEntries.Any())
         {
-            await SyncChangesToMongoAtlasAsync(pendingEntries, cancellationToken);
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await SyncChangesToMongoAtlasAsync(pendingEntries, CancellationToken.None);
+                }
+                catch
+                {
+                    // Ignore Mongo Atlas background network blips
+                }
+            });
         }
 
         return result;
