@@ -56,7 +56,7 @@ public class GlobalExceptionHandlerMiddleware
             Success: false,
             Message: title,
             Data: null,
-            Errors: errors ?? new[] { exception.Message }
+            Errors: errors ?? new[] { exception.ToString() }
         );
 
         var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
