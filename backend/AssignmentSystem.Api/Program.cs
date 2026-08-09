@@ -93,12 +93,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.SetIsOriginAllowed(_ => true)
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -141,7 +140,12 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
-app.UseCors("AllowFrontend");
+
+app.UseRouting();
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -187,10 +191,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
-
 app.MapGet("/", () => Results.Redirect("/swagger"));
 
 app.Run();
