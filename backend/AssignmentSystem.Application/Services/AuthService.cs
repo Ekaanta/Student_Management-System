@@ -38,7 +38,7 @@ public class AuthService : IAuthService
         }
         catch
         {
-            // Fallback to MongoDB Atlas if relational query throws
+            // Ignore DbContext query error
         }
 
         if (user == null && _mongoDbContext != null)
@@ -47,16 +47,10 @@ public class AuthService : IAuthService
             {
                 var mongoFilter = Builders<User>.Filter.Eq(u => u.Email, normalizedEmail);
                 user = await _mongoDbContext.Users.Find(mongoFilter).FirstOrDefaultAsync(cancellationToken);
-                
-                if (user != null && !_dbContext.Users.Any(u => u.Id == user.Id))
-                {
-                    await _dbContext.Users.AddAsync(user, cancellationToken);
-                    await _dbContext.SaveChangesAsync(cancellationToken);
-                }
             }
             catch
             {
-                // Ignore Mongo fallback error
+                // Ignore Mongo DNS / SRV lookup error in cloud containers
             }
         }
 
@@ -76,15 +70,31 @@ public class AuthService : IAuthService
 
     public async Task<UserDetailDto> GetProfileAsync(Guid userId, CancellationToken cancellationToken = default)
     {
-        var user = await _dbContext.Users
-            .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+        User? user = null;
+
+        try
+        {
+            user = await _dbContext.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+        }
+        catch
+        {
+            // Ignore DbContext error
+        }
 
         if (user == null && _mongoDbContext != null)
         {
-            user = await _mongoDbContext.Users
-                .Find(Builders<User>.Filter.Eq(u => u.Id, userId))
-                .FirstOrDefaultAsync(cancellationToken);
+            try
+            {
+                user = await _mongoDbContext.Users
+                    .Find(Builders<User>.Filter.Eq(u => u.Id, userId))
+                    .FirstOrDefaultAsync(cancellationToken);
+            }
+            catch
+            {
+                // Ignore Mongo DNS / SRV lookup error
+            }
         }
 
         if (user == null)
