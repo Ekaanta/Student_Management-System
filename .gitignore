@@ -1,0 +1,42 @@
+# .NET build outputs
+**/bin/
+**/obj/
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Environment & Secret Files
+.env
+.env.*
+*.env
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Secrets.json
+*.secret.json
+
+# Local Log, Script & Temporary Files
+*.log
+*.txt
+out.txt
+pg_log.txt
+pg_run.log
+pg_user_log.txt
+trust.txt
+run_pg.bat
+run_postgres.bat
+setup_postgres_service.ps1
+*.bat
+*.ps1
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.user
