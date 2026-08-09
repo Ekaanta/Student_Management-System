@@ -17,10 +17,10 @@ public static class MongoDbSeeder
         // 1. Ensure indexes are created before sync/seeding
         await mongoContext.EnsureIndexesCreatedAsync(cancellationToken);
 
-        // 2. If PostgreSQL DbContext is available, sync all records from PostgreSQL to MongoDB Atlas
+        // 2. If Primary DbContext is available, sync all records to MongoDB Atlas
         if (pgDbContext != null)
         {
-            await SyncFromPostgresAsync(mongoContext, pgDbContext, cancellationToken);
+            await SyncFromRelationalDbAsync(mongoContext, pgDbContext, cancellationToken);
             return;
         }
 
@@ -121,7 +121,7 @@ public static class MongoDbSeeder
         await mongoContext.ClassEnrollments.InsertOneAsync(studentClassEnrollment, cancellationToken: cancellationToken);
     }
 
-    private static async Task SyncFromPostgresAsync(IMongoDbContext mongoContext, ApplicationDbContext pgDbContext, CancellationToken cancellationToken)
+    private static async Task SyncFromRelationalDbAsync(IMongoDbContext mongoContext, ApplicationDbContext pgDbContext, CancellationToken cancellationToken)
     {
         // 1. Sync Users by Email match
         var pgUsers = await pgDbContext.Users.AsNoTracking().ToListAsync(cancellationToken);

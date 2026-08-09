@@ -38,7 +38,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             .Select(e => new TrackedEntityState(e.Entity, e.State))
             .ToList();
 
-        // 2. Execute primary SaveChanges (e.g. PostgreSQL)
+        // 2. Execute primary SaveChanges
         var result = await base.SaveChangesAsync(cancellationToken);
 
         // 3. Instantly sync tracked changes to MongoDB Atlas

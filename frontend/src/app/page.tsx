@@ -120,7 +120,7 @@ export default function Home() {
           <div className="flex space-x-6 text-slate-400">
             <a href="http://localhost:5000/swagger" className="hover:text-white transition-colors">Swagger Documentation</a>
             <span className="text-slate-700">|</span>
-            <span className="text-indigo-400">PostgreSQL + EF Core</span>
+            <span className="text-indigo-400">MongoDB Database System</span>
           </div>
         </div>
       </footer>

@@ -1,12 +1,12 @@
 # Assignment & Submission Management System
 
-A production-grade, enterprise-ready **Role-Based Assignment & Submission Management System** built with **.NET 8 Web API** (Clean Architecture), **Next.js 16 App Router** (TypeScript, TailwindCSS), **Hosted PostgreSQL**, and **MongoDB Atlas** dual-persistence.
+A production-grade, enterprise-ready **Role-Based Assignment & Submission Management System** built with **.NET 8 Web API** (Clean Architecture), **Next.js 16 App Router** (TypeScript, TailwindCSS), and **MongoDB Atlas** database integration.
 
 ---
 
 ## 1. Project Overview
 
-The **Assignment & Submission Management System** provides a complete end-to-end digital portal for educational institutions. It streamlines administrative governance, academic course setup, teacher assignment creation and grading, and student coursework submission with real-time deadline enforcement and dual-database reporting.
+The **Assignment & Submission Management System** provides a complete end-to-end digital portal for educational institutions. It streamlines administrative governance, academic course setup, teacher assignment creation and grading, and student coursework submission with real-time deadline enforcement and MongoDB database persistence.
 
 ---
 
@@ -15,9 +15,9 @@ The **Assignment & Submission Management System** provides a complete end-to-end
 Educational institutions face challenges managing coursework lifecycles manually:
 - Lack of centralized role governance between Administrators, Teachers, and Students.
 - Unreliable submission tracking and lack of strict automated deadline enforcement.
-- Difficulty maintaining dual data availability for relational transactional integrity alongside cloud document storage for real-time reporting.
+- Difficulty maintaining high-availability document storage for real-time reporting and structured entity queries.
 
-This system resolves these pain points by offering a unified role-based web application with strict deadline validation, instant resource isolation, and real-time dual persistence across PostgreSQL and MongoDB Atlas.
+This system resolves these pain points by offering a unified role-based web application with strict deadline validation, instant resource isolation, and real-time MongoDB database persistence.
 
 ---
 
@@ -28,7 +28,7 @@ This system resolves these pain points by offering a unified role-based web appl
 - 📚 **Teacher Coursework Management**: Create coursework as **Draft** or **Published**, edit assignments, set max marks, enforce future due dates, review student submissions, and assign numerical scores with feedback.
 - 🎓 **Student Coursework Portal**: View enrolled classes, submit answers with optional attachment URLs, update answers prior to deadline, and inspect teacher marks and feedback.
 - ⏳ **Automated Deadline Enforcement**: Strict backend rejection (`400 Bad Request`) for any submission or answer modification attempt past `DueDateUtc`.
-- ⚡ **Real-Time Dual Persistence**: Automatic dual-writing on `ApplicationDbContext.SaveChangesAsync()` from PostgreSQL to MongoDB Atlas document collections.
+- ⚡ **Real-Time MongoDB Integration**: Automatic real-time persistence on `ApplicationDbContext.SaveChangesAsync()` to MongoDB Atlas document collections.
 - 🌗 **Responsive Modern UI**: Dark and Light theme toggle support built with TailwindCSS.
 
 ---
@@ -66,7 +66,6 @@ This system resolves these pain points by offering a unified role-based web appl
 ### Backend (.NET 8 Web API)
 - **Framework**: .NET 8 SDK (C# 12)
 - **Architecture**: Clean Architecture (Domain, Application, Infrastructure, API)
-- **ORM / Relational DB**: Entity Framework Core 8 (`Npgsql.EntityFrameworkCore.PostgreSQL`)
 - **Document DB Driver**: MongoDB C# Driver (`MongoDB.Driver` 3.4.0)
 - **Security & JWT**: `System.IdentityModel.Tokens.Jwt`, `Microsoft.AspNetCore.Authentication.JwtBearer`, `BCrypt.Net-Next`
 - **Validation**: FluentValidation 11
@@ -81,9 +80,8 @@ This system resolves these pain points by offering a unified role-based web appl
 - **Icons & UI**: Lucide React, Custom SVG Icons
 - **State & Context**: React Context API (`AuthContext`, `ThemeContext`)
 
-### Databases & Cloud Infrastructure
-- **Relational RDBMS**: Hosted PostgreSQL Database
-- **Document Store**: MongoDB Atlas Cloud Database (`Cluster0`, database `assignment_management`)
+### Database & Cloud Infrastructure
+- **Database System**: MongoDB Atlas Cloud Database (`Cluster0`, database `assignment_management`)
 
 ---
 
@@ -99,38 +97,37 @@ This system resolves these pain points by offering a unified role-based web appl
                     ┌──────────────────────────────────────────────┐
                     │             .NET 8 Web API                   │
                     │      (Clean Architecture, Serilog)           │
-                    └──────────────┬────────────────┬──────────────┘
-                                   │                │
-            EF Core (Read/Write)   │                │ Instant Dual Sync
-                                   ▼                ▼
-                     ┌───────────────────┐    ┌───────────────────┐
-                     │ Hosted PostgreSQL │    │   MongoDB Atlas   │
-                     │  (Primary RDBMS)  │    │ (Document Store)  │
-                     └───────────────────┘    └───────────────────┘
+                    └──────────────────────┬───────────────────────┘
+                                           │ Instant Document Sync
+                                           ▼
+                                ┌───────────────────┐
+                                │   MongoDB Atlas   │
+                                │ (Document Store)  │
+                                └───────────────────┘
 ```
 
 The solution strictly adheres to **Clean Architecture**:
 1. **`AssignmentSystem.Domain`**: Contains core entities (`User`, `SchoolClass`, `Subject`, `ClassSubject`, `ClassEnrollment`, `Assignment`, `Submission`), domain enums (`UserRole`, `AssignmentStatus`, `SubmissionStatus`), and base entity contracts.
 2. **`AssignmentSystem.Application`**: Contains DTOs, FluentValidation validators, custom exception definitions (`AppException`, `NotFoundException`, `UnauthorizedException`, `ValidationException`), and service interfaces/implementations (`AuthService`, `AdminService`, `TeacherService`, `StudentService`).
-3. **`AssignmentSystem.Infrastructure`**: Contains `ApplicationDbContext` (PostgreSQL), `MongoDbContext` & `MongoDbSeeder` (MongoDB Atlas), `JwtTokenGenerator`, and `PasswordHasherService`.
+3. **`AssignmentSystem.Infrastructure`**: Contains `ApplicationDbContext`, `MongoDbContext` & `MongoDbSeeder` (MongoDB Atlas), `JwtTokenGenerator`, and `PasswordHasherService`.
 4. **`AssignmentSystem.Api`**: Controllers (`AuthController`, `AdminController`, `TeacherController`, `StudentController`, `AssignmentsController`, `SubmissionsController`), global exception middleware, and Serilog logging setup.
 
 ---
 
-## 7. Database Design & Dual Persistence
+## 7. Database Design & MongoDB Collections
 
-### Relational Schema (PostgreSQL Entity Model)
+### MongoDB Atlas Collections (`assignment_management` Database)
 
-- **`Users`**: `Id` (PK, Guid), `Email` (Unique), `PasswordHash`, `FirstName`, `LastName`, `Role` (Int Enum), `IsActive` (Bool), `ProfilePictureUrl`, `CreatedAtUtc`, `UpdatedAtUtc`.
-- **`SchoolClasses`**: `Id` (PK, Guid), `Name`, `Code` (Unique), `AcademicYear`, `Description`, `IsActive`, `CreatedAtUtc`, `UpdatedAtUtc`.
-- **`Subjects`**: `Id` (PK, Guid), `Name`, `Code` (Unique), `Description`, `IsActive`, `CreatedAtUtc`, `UpdatedAtUtc`.
-- **`ClassSubjects`**: `Id` (PK, Guid), `ClassId` (FK -> SchoolClasses), `SubjectId` (FK -> Subjects), `TeacherId` (FK -> Users), `CreatedAtUtc`, `UpdatedAtUtc`.
-- **`ClassEnrollments`**: `Id` (PK, Guid), `ClassId` (FK -> SchoolClasses), `StudentId` (FK -> Users), `EnrolledAtUtc`, `CreatedAtUtc`, `UpdatedAtUtc`.
-- **`Assignments`**: `Id` (PK, Guid), `Title`, `Description`, `MaxScore` (Decimal), `Status` (Enum: Draft=0, Published=1), `DueDateUtc` (DateTime), `PublishedAtUtc`, `ClassSubjectId` (FK -> ClassSubjects), `TeacherId` (FK -> Users), `CreatedAtUtc`, `UpdatedAtUtc`.
-- **`Submissions`**: `Id` (PK, Guid), `AssignmentId` (FK -> Assignments), `StudentId` (FK -> Users), `SubmittedContent` (Text), `AttachmentUrl`, `SubmittedAtUtc`, `Status` (Enum: Submitted=0, Graded=1, Reviewed=2), `Grade` (Decimal?), `Feedback` (Text?), `GradedAtUtc`, `GradedById` (FK -> Users), `CreatedAtUtc`, `UpdatedAtUtc`.
+- **`users`**: User account documents containing `_id`, `Email` (Unique index), `PasswordHash`, `FirstName`, `LastName`, `Role` (Int Enum), `IsActive` (Bool), `ProfilePictureUrl`, `CreatedAtUtc`, `UpdatedAtUtc`.
+- **`schoolClasses`**: Class documents containing `_id`, `Name`, `Code` (Unique index), `AcademicYear`, `Description`, `IsActive`, `CreatedAtUtc`, `UpdatedAtUtc`.
+- **`subjects`**: Subject documents containing `_id`, `Name`, `Code` (Unique index), `Description`, `IsActive`, `CreatedAtUtc`, `UpdatedAtUtc`.
+- **`classSubjects`**: Teacher class assignment documents containing `_id`, `ClassId`, `SubjectId`, `TeacherId`, `CreatedAtUtc`, `UpdatedAtUtc`.
+- **`classEnrollments`**: Student enrollment documents containing `_id`, `ClassId`, `StudentId`, `EnrolledAtUtc`, `CreatedAtUtc`, `UpdatedAtUtc`.
+- **`assignments`**: Coursework documents containing `_id`, `Title`, `Description`, `MaxScore`, `Status` (Enum: Draft=0, Published=1), `DueDateUtc`, `PublishedAtUtc`, `ClassSubjectId`, `TeacherId`, `CreatedAtUtc`, `UpdatedAtUtc`.
+- **`submissions`**: Answer documents containing `_id`, `AssignmentId`, `StudentId`, `SubmittedContent`, `AttachmentUrl`, `SubmittedAtUtc`, `Status` (Enum: Submitted=0, Graded=1, Reviewed=2), `Grade`, `Feedback`, `GradedAtUtc`, `GradedById`, `CreatedAtUtc`, `UpdatedAtUtc`.
 
-### Real-Time MongoDB Atlas Dual Sync Model
-Inside [`ApplicationDbContext.cs`](file:///C:/Users/Ekanta%20Banik%20Durjoy/.gemini/antigravity-ide/scratch/assignment-management-system/backend/AssignmentSystem.Infrastructure/Data/ApplicationDbContext.cs), the `SaveChangesAsync()` method intercepts all tracked Entity Framework Core entity changes (`Added`, `Modified`, `Deleted`) and applies them instantly to MongoDB Atlas document collections (`users`, `schoolClasses`, `subjects`, `classSubjects`, `classEnrollments`, `assignments`, `submissions`). To avoid circular dependency issues, `BsonClassMap` unmaps EF Core navigation properties during MongoDB serialization.
+### Real-Time MongoDB Atlas Sync Model
+Inside [`ApplicationDbContext.cs`](file:///C:/Users/Ekanta%20Banik%20Durjoy/.gemini/antigravity-ide/scratch/assignment-management-system/backend/AssignmentSystem.Infrastructure/Data/ApplicationDbContext.cs), the `SaveChangesAsync()` method intercepts tracked entity changes (`Added`, `Modified`, `Deleted`) and applies them instantly to MongoDB Atlas document collections (`users`, `schoolClasses`, `subjects`, `classSubjects`, `classEnrollments`, `assignments`, `submissions`).
 
 ---
 
@@ -288,12 +285,12 @@ backend/
 ├── AssignmentSystem.Infrastructure/    # Infrastructure Layer (Data & Security)
 │   ├── Data/                           # EF Core DbContext & MongoDB Context
 │   │   ├── Configurations/             # EF Core Model Configurations
-│   │   ├── ApplicationDbContext.cs     # Dual-Sync SaveChangesAsync
-│   │   ├── DbSeeder.cs                 # Hosted PostgreSQL Seeder
+│   │   ├── ApplicationDbContext.cs     # Real-Time SaveChangesAsync Sync
+│   │   ├── DbSeeder.cs                 # Database Seeder
 │   │   ├── MongoDbContext.cs           # MongoDB Driver Context & Serializers
-│   │   └── MongoDbSeeder.cs            # MongoDB Seeder & Postgres Sync
+│   │   └── MongoDbSeeder.cs            # MongoDB Seeder & Index Sync
 │   ├── Identity/                       # Password Hashing & JWT Token Gen
-│   └── Migrations/                     # EF Core PostgreSQL Migration Snapshots
+│   └── Migrations/                     # Migration Snapshots
 ├── AssignmentSystem.UnitTests/         # Unit Test Project (xUnit & Moq)
 │   ├── AdminModuleTests.cs
 │   ├── AuthModuleTests.cs
@@ -361,7 +358,6 @@ cd Student_Management-System
 
 | Variable | Description | Example / Default Value |
 | :--- | :--- | :--- |
-| `ConnectionStrings:DefaultConnection` | Hosted PostgreSQL Connection String | `Host=<HOST>;Port=5432;Database=assignment_management;Username=<USER>;Password=<PWD>` |
 | `MONGODB_CONNECTION_STRING` | MongoDB Atlas Connection String | `mongodb+srv://<USER>:<PWD>@cluster0.bzt8ohz.mongodb.net/?appName=Cluster0` |
 | `MONGODB_DATABASE_NAME` | MongoDB Database Name | `assignment_management` |
 | `Jwt:Secret` | 256-bit JWT Signing Secret Key | `SuperSecretKeyForJwtTokenGenerationThatIsAtLeast32BytesLong!` |
@@ -371,16 +367,10 @@ cd Student_Management-System
 
 ---
 
-## 18. Database Migration Instructions
-
-### Hosted PostgreSQL Database Migration
-EF Core migrations apply automatically when the backend API starts up. To execute manual migrations via EF Core CLI:
-```powershell
-dotnet ef database update --project backend/AssignmentSystem.Infrastructure/AssignmentSystem.Infrastructure.csproj --startup-project backend/AssignmentSystem.Api/AssignmentSystem.Api.csproj
-```
+## 18. Database Migration & Seeding Instructions
 
 ### MongoDB Atlas Database Initialization
-Indexes (`ux_users_email`, `ux_schoolclasses_code`, `ux_subjects_code`) and PostgreSQL data synchronization initialize automatically upon API startup via `MongoDbSeeder.SeedAsync()`.
+Indexes (`ux_users_email`, `ux_schoolclasses_code`, `ux_subjects_code`) and data seeding initialize automatically upon API startup via `MongoDbSeeder.SeedAsync()`.
 
 ---
 
@@ -429,11 +419,11 @@ You can execute API requests directly from Swagger by clicking **Authorize** and
 
 ## 22. Important Design Decisions
 
-1. **Dual Persistence Pattern on `SaveChangesAsync()`**: PostgreSQL provides primary ACID transaction support. Synchronizing tracked changes to MongoDB Atlas inside `SaveChangesAsync()` ensures document collections stay synchronized without complex outbox polling.
+1. **Real-Time MongoDB Atlas Persistence**: Synchronizing tracked changes to MongoDB Atlas inside `SaveChangesAsync()` ensures document collections stay synchronized without complex outbox polling.
 2. **BsonClassMap Navigation Unmapping**: EF Core entity classes reference navigation properties (e.g. `User.Submissions`). During MongoDB driver serialization, unmapping navigation properties prevents circular graph references and duplicate write exceptions.
 3. **Soft Delete vs Hard Delete**:
    - Toggling user status (`IsActive = false`) acts as a soft delete / account lock.
-   - Permanent delete (`DELETE /api/v1/admin/users/{id}`) removes records completely from PostgreSQL and deletes the matching document from MongoDB Atlas.
+   - Permanent delete (`DELETE /api/v1/admin/users/{id}`) removes records completely and deletes the matching document from MongoDB Atlas.
 4. **Clean Separation of Role Portals**: Dedicated route layouts (`/admin/*`, `/teacher/*`, `/student/*`) provide custom sidebars and navigation suited for each user persona.
 
 ---

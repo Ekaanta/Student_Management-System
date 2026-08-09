@@ -157,11 +157,11 @@ if (app.Environment.IsDevelopment())
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 await dbContext.Database.MigrateAsync();
                 await DbSeeder.SeedAsync(dbContext, passwordHasher);
-                logger.LogInformation("Successfully connected, migrated, and seeded hosted PostgreSQL database.");
+                logger.LogInformation("Successfully connected, migrated, and seeded primary relational database.");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Failed to connect to hosted PostgreSQL database.");
+                logger.LogError(ex, "Failed to connect to primary relational database.");
             }
         }
 
