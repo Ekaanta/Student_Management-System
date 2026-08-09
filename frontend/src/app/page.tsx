@@ -38,10 +38,6 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 py-20 text-center flex-1 flex flex-col items-center justify-center">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-8 animate-pulse">
-          <span>⚡ Enterprise Role-Based Coursework Portal</span>
-        </div>
-
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-slate-100 to-slate-400 max-w-4xl leading-tight mb-8">
           Seamless Assignment & Submission Management
         </h1>
