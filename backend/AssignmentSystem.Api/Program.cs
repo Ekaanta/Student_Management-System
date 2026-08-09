@@ -28,7 +28,13 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .ReadFrom.Configuration(ctx.Configuration));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-if (!string.IsNullOrWhiteSpace(connectionString) && !connectionString.Contains("<REMOTE_HOST>"))
+var isNpgsqlConfigured = !string.IsNullOrWhiteSpace(connectionString) 
+                         && !connectionString.Contains("<REMOTE_HOST>") 
+                         && !connectionString.Contains("<REMOTE_USERNAME>") 
+                         && !connectionString.Contains("localhost") 
+                         && !connectionString.Contains("127.0.0.1");
+
+if (isNpgsqlConfigured)
 {
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseNpgsql(connectionString));
