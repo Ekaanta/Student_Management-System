@@ -28,6 +28,7 @@ run_postgres.bat
 setup_postgres_service.ps1
 *.bat
 *.ps1
+generate_qa_pdf_report.py
 
 # Node / Next.js
 node_modules/
