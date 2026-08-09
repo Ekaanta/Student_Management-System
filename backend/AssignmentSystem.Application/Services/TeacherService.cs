@@ -388,6 +388,11 @@ public class TeacherService : ITeacherService
         {
             throw new AppException("Maximum marks must be greater than zero.", 400);
         }
+
+        if (dueDateUtc <= DateTime.UtcNow)
+        {
+            throw new AppException("Assignment due date must be set in the future.", 400);
+        }
     }
 
     private static AssignmentDto MapToAssignmentDto(Assignment a)
