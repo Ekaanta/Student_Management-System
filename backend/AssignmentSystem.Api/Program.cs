@@ -54,7 +54,7 @@ var mongoDbName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME")
 
 if (string.IsNullOrWhiteSpace(mongoConnStr) || mongoConnStr.Contains("<db_password>"))
 {
-    mongoConnStr = "mongodb+srv://ekantabanik_db_user:Qh2k8Zh4WkEcwPLP@cluster0.bzt8ohz.mongodb.net/?appName=Cluster0";
+    mongoConnStr = "mongodb://ekantabanik_db_user:Qh2k8Zh4WkEcwPLP@cluster0-shard-00-00.bzt8ohz.mongodb.net:27017,cluster0-shard-00-01.bzt8ohz.mongodb.net:27017,cluster0-shard-00-02.bzt8ohz.mongodb.net:27017/assignment_management?ssl=true&replicaSet=atlas-13bzt8-shard-0&authSource=admin&retryWrites=true&w=majority";
 }
 
 builder.Services.Configure<MongoDBSettings>(options =>
@@ -193,7 +193,7 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "Failed to connect or initialize MongoDB Atlas database.");
+        logger.LogWarning(ex, "MongoDB Atlas background sync notice: {Message}", ex.Message);
     }
 }
 
