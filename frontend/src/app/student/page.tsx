@@ -61,11 +61,11 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-8 w-full">
       {/* Welcome Banner */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-pink-900/40 via-purple-900/40 to-slate-900/80 p-8 rounded-3xl border border-pink-800/40">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-slate-900 bg-gradient-to-r from-slate-900 via-pink-950 to-purple-950 p-8 rounded-3xl border border-pink-800/50 shadow-xl">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-pink-400">Student Portal</span>
+          <span className="text-xs font-extrabold uppercase tracking-wider text-pink-300">Student Portal</span>
           <h1 className="text-3xl font-black text-white mt-1">Welcome, {user?.firstName}!</h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-slate-200 text-sm mt-1 font-medium leading-relaxed">
             Track active coursework across your enrolled classes, submit assignments before deadlines, and view teacher feedback.
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function StudentDashboard() {
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-sm font-semibold">
           {error}
         </div>
       )}
@@ -90,46 +90,46 @@ export default function StudentDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Enrolled Classes</span>
-            <div className="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-500 flex items-center justify-center font-bold">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Enrolled Classes</span>
+            <div className="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center font-bold">
               <GraduationCap className="w-5 h-5" />
             </div>
           </div>
           <p className="text-3xl font-black text-slate-900 dark:text-white mt-4">{classes.length}</p>
-          <p className="text-xs text-slate-400 mt-1">Active class sections</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Active class sections</p>
         </div>
 
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Pending Tasks</span>
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pending Tasks</span>
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
               <Clock className="w-5 h-5" />
             </div>
           </div>
           <p className="text-3xl font-black text-amber-600 dark:text-amber-400 mt-4">{pendingAssignments.length}</p>
-          <p className="text-xs text-slate-400 mt-1">Due soon for submission</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Due soon for submission</p>
         </div>
 
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Submitted Work</span>
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Submitted Work</span>
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
           <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-4">{submittedAssignments.length}</p>
-          <p className="text-xs text-slate-400 mt-1">Completed submissions</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Completed submissions</p>
         </div>
 
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Graded Results</span>
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Graded Results</span>
+            <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
               <Award className="w-5 h-5" />
             </div>
           </div>
           <p className="text-3xl font-black text-purple-600 dark:text-purple-400 mt-4">{gradedAssignments.length}</p>
-          <p className="text-xs text-slate-400 mt-1">Reviewed by teacher</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Reviewed by teacher</p>
         </div>
       </div>
 

@@ -123,7 +123,7 @@ export default function StudentAssignmentDetailsPage({ params }: { params: Promi
 
       {/* Grade & Teacher Feedback Panel (If Graded) */}
       {assignment.hasSubmitted && assignment.studentGrade !== null && assignment.studentGrade !== undefined && (
-        <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-emerald-500/30 space-y-4">
+        <div className="p-6 rounded-3xl bg-slate-900 bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 border border-emerald-500/40 shadow-xl space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Graded Result</span>

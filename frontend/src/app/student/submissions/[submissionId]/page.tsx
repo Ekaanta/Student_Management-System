@@ -79,7 +79,7 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ sub
 
       {/* Grade & Feedback Highlight Card (If Graded) */}
       {submission.grade !== null && submission.grade !== undefined && (
-        <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-emerald-500/30 space-y-4">
+        <div className="p-6 rounded-3xl bg-slate-900 bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 border border-emerald-500/40 shadow-xl space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Teacher Evaluation</span>
@@ -88,7 +88,7 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ sub
               </h3>
             </div>
             {submission.gradedByName && (
-              <span className="text-xs text-slate-400 font-medium">Evaluated by {submission.gradedByName}</span>
+              <span className="text-xs text-slate-300 font-semibold">Evaluated by {submission.gradedByName}</span>
             )}
           </div>
 
