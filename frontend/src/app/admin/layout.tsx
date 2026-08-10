@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-72 bg-white dark:bg-slate-900/90 border-r border-slate-200 dark:border-slate-800/80 flex flex-col justify-between p-6 shrink-0 sticky top-0 h-screen transition-colors duration-300">
         <div>
           <div className="flex items-center space-x-3 mb-8 shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-semibold text-white text-sm shadow-md shadow-indigo-500/25 shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-semibold text-white text-sm shrink-0">
               OP
             </div>
             <div className="min-w-0">
@@ -75,7 +75,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   href={item.href}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
                     isActive
-                      ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
+                      ? "bg-indigo-600 text-white"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800/60"
                   }`}
                 >

@@ -27,6 +27,7 @@
 
 * {
   font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-shadow: none !important;
 }
 
 body {

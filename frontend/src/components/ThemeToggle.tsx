@@ -18,8 +18,8 @@ export const ThemeToggle: React.FC<{ className?: string; showLabel?: boolean }> 
       title={`Switch to ${isDark ? "light" : "dark"} mode`}
       className={`relative inline-flex items-center justify-center p-2.5 rounded-xl border transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
         isDark
-          ? "bg-slate-900/90 border-slate-800 text-amber-400 hover:bg-slate-800 hover:border-slate-700 shadow-md shadow-amber-500/10"
-          : "bg-white border-slate-200 text-indigo-600 hover:bg-slate-100 hover:border-slate-300 shadow-md shadow-indigo-500/10"
+          ? "bg-slate-900/90 border-slate-800 text-amber-400 hover:bg-slate-800 hover:border-slate-700"
+          : "bg-white border-slate-200 text-indigo-600 hover:bg-slate-100 hover:border-slate-300"
       } ${className}`}
     >
       <div className="relative w-5 h-5 flex items-center justify-center">
