@@ -10,6 +10,7 @@
 .env
 .env.*
 *.env
+render.yaml
 appsettings.Development.json
 appsettings.Local.json
 appsettings.Secrets.json
