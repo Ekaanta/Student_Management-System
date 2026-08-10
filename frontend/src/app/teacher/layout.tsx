@@ -51,15 +51,17 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
       {/* Sidebar Navigation */}
       <aside className="w-72 bg-white dark:bg-slate-900/90 border-r border-slate-200 dark:border-slate-800/80 flex flex-col justify-between p-6 shrink-0 sticky top-0 h-screen transition-colors duration-300">
         <div>
-          <div className="flex items-center space-x-3 mb-10">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-500 via-indigo-500 to-pink-500 flex items-center justify-center font-bold text-white shadow-lg shadow-purple-500/25">
+          <div className="flex items-center space-x-3 mb-8 shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-500 via-indigo-500 to-pink-500 flex items-center justify-center font-semibold text-white text-sm shadow-md shadow-purple-500/25 shrink-0">
               OP
             </div>
-            <div>
-              <span className="text-lg font-extrabold text-slate-900 dark:text-white">
+            <div className="min-w-0">
+              <span className="text-sm font-semibold text-slate-900 dark:text-white whitespace-nowrap block tracking-tight">
                 OnnoRokom Projukti
               </span>
-              <span className="block text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Teacher Portal</span>
+              <span className="block text-[11px] font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400">
+                Teacher Portal
+              </span>
             </div>
           </div>
 
