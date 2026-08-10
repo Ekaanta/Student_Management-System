@@ -57,7 +57,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
               <span className="text-lg font-extrabold text-slate-900 dark:text-white">
                 OnnoRokom Projukti
               </span>
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-pink-600 dark:text-pink-400">Student Portal</span>
+              <span className="block text-xs font-bold uppercase tracking-wider text-pink-600 dark:text-pink-400">Student Portal</span>
             </div>
           </div>
 
@@ -71,7 +71,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
                   href={item.href}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
                     isActive
-                      ? "bg-pink-600 text-white shadow-lg shadow-pink-600/30"
+                      ? "bg-pink-600 text-white shadow-md shadow-pink-600/30"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800/60"
                   }`}
                 >
@@ -107,7 +107,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
                 <p className="text-xs font-bold text-slate-900 dark:text-white truncate group-hover:text-pink-500 transition-colors">
                   {user.firstName} {user.lastName}
                 </p>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{user.email}</p>
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate">{user.email}</p>
               </div>
             </Link>
             <button

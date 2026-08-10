@@ -160,11 +160,11 @@ export default function StudentDashboard() {
                       <div className="flex items-center space-x-2">
                         <span className="font-bold text-slate-900 dark:text-white">{item.title}</span>
                         {item.hasSubmitted ? (
-                          <span className="px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[10px] font-bold">Submitted</span>
+                          <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold">Submitted</span>
                         ) : item.isOverdue ? (
-                          <span className="px-2.5 py-0.5 rounded-md bg-red-500/10 text-red-500 border border-red-500/20 text-[10px] font-bold">Overdue</span>
+                          <span className="px-2.5 py-1 rounded-md bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 text-xs font-bold">Overdue</span>
                         ) : (
-                          <span className="px-2.5 py-0.5 rounded-md bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[10px] font-bold">Pending</span>
+                          <span className="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs font-bold">Pending</span>
                         )}
                       </div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">

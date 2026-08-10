@@ -194,7 +194,7 @@ export default function AdminTeacherAssignmentsPage() {
                       </span>
                       <div>
                         <p className="text-xs font-bold text-slate-900 dark:text-white">{item.teacherName}</p>
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{item.teacherEmail}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">{item.teacherEmail}</p>
                       </div>
                     </div>
                   </td>

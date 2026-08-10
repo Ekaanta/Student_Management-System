@@ -91,7 +91,7 @@ export default function AdminDashboardPage() {
               >
                 <div className="flex items-center justify-between mb-4">
                   <Icon className={`w-7 h-7 ${card.text}`} />
-                  <span className={`text-[10px] font-extrabold uppercase tracking-wider ${card.text}`}>System Metric</span>
+                  <span className={`text-xs font-extrabold uppercase tracking-wider ${card.text}`}>System Metric</span>
                 </div>
                 <p className="text-3xl font-black text-slate-900 dark:text-white mb-1">{card.value}</p>
                 <p className="text-xs font-bold text-slate-700 dark:text-slate-300">{card.label}</p>

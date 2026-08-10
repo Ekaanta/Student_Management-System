@@ -171,9 +171,9 @@ export default function TeacherDashboard() {
                       <div className="flex items-center space-x-2">
                         <span className="font-bold text-slate-900 dark:text-white">{item.title}</span>
                         {item.status === AssignmentStatus.Published ? (
-                          <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[10px] font-bold">Published</span>
+                          <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold">Published</span>
                         ) : (
-                          <span className="px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[10px] font-bold">Draft</span>
+                          <span className="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs font-bold">Draft</span>
                         )}
                       </div>
                       <p className="text-xs text-slate-500 dark:text-slate-400">
