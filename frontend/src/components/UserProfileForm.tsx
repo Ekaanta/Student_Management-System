@@ -112,8 +112,8 @@ export function UserProfileForm() {
   return (
     <div className="w-full space-y-8">
       <div>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-white">Account Profile Settings</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+        <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">Account Profile Settings</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">
           Manage your personal details, profile picture, and security preferences.
         </p>
       </div>

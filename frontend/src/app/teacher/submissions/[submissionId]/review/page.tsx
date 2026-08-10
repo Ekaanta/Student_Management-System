@@ -126,9 +126,9 @@ export default function SubmissionReviewPage({ params }: { params: Promise<{ sub
               <span>Back to Submissions List</span>
             </Link>
           )}
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white">Review & Grade Submission</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
-            Assignment: <span className="font-bold text-slate-900 dark:text-white">{submission?.assignmentTitle}</span> • Max Marks: {maxScore}
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">Review & Grade Submission</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">
+            Assignment: <span className="font-semibold text-slate-900 dark:text-white">{submission?.assignmentTitle}</span> • Max Marks: {maxScore}
           </p>
         </div>
       </div>

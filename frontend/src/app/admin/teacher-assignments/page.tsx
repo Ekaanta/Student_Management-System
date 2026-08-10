@@ -137,8 +137,8 @@ export default function AdminTeacherAssignmentsPage() {
     <div className="space-y-6 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Teacher Assignments</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Assign designated teachers to teach subjects across school classes.</p>
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">Teacher Assignments</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">Assign designated teachers to teach subjects across school classes.</p>
         </div>
         <button
           onClick={openAssignModal}

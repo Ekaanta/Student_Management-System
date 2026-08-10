@@ -100,8 +100,8 @@ export default function CreateAssignmentPage() {
     <div className="w-full space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white">Create Assignment</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">Create Assignment</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">
             Define coursework title, instructions, maximum marks, deadline, and assign to your class.
           </p>
         </div>

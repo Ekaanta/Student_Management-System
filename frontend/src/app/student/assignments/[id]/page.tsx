@@ -65,7 +65,7 @@ export default function StudentAssignmentDetailsPage({ params }: { params: Promi
               {assignment.className} ({assignment.classCode}) • {assignment.subjectName}
             </span>
           </div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white">{assignment.title}</h1>
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">{assignment.title}</h1>
         </div>
 
         <div className="flex items-center space-x-3 shrink-0">

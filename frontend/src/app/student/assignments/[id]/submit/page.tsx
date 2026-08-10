@@ -103,9 +103,9 @@ export default function SubmitAssignmentPage({ params }: { params: Promise<{ id:
     <div className="w-full space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white">Submit Assignment</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
-            Assignment: <span className="font-bold text-slate-900 dark:text-white">{assignment?.title}</span> • Max Marks: {assignment?.maxScore}
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">Submit Assignment</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">
+            Assignment: <span className="font-semibold text-slate-900 dark:text-white">{assignment?.title}</span> • Max Marks: {assignment?.maxScore}
           </p>
         </div>
         <Link

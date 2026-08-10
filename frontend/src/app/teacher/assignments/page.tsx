@@ -79,8 +79,8 @@ export default function TeacherAssignmentsPage() {
     <div className="space-y-8 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white">Assignments</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">Assignments</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">
             Create, manage, and publish assignments for your assigned classes.
           </p>
         </div>

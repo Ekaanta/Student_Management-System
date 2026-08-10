@@ -53,8 +53,8 @@ export default function StudentAssignmentsPage() {
   return (
     <div className="space-y-8 w-full">
       <div>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-white">My Coursework & Assignments</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+        <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">My Coursework & Assignments</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">
           View published assignments across your enrolled classes, track deadlines, and submit your work.
         </p>
       </div>

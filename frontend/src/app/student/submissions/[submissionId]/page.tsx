@@ -60,8 +60,8 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ sub
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to My Submissions</span>
           </Link>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-white">{submission.assignmentTitle}</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">{submission.assignmentTitle}</h1>
+          <p className="text-xs text-slate-400 mt-1 font-normal">
             Submitted on {new Date(submission.submittedAtUtc).toLocaleString()}
           </p>
         </div>

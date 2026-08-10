@@ -52,12 +52,12 @@ export default function RegisterPage() {
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-indigo-500/30">
             OP
           </div>
-          <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+          <span className="text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
             OnnoRokom Projukti
           </span>
         </Link>
-        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Create your account</h2>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+        <h2 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">Create your account</h2>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 font-normal">
           Already have an account?{" "}
           <Link href="/login" className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline transition-colors">
             Sign in here

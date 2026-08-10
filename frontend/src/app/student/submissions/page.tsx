@@ -43,8 +43,8 @@ export default function StudentSubmissionsPage() {
   return (
     <div className="space-y-8 w-full">
       <div>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-white">My Submissions</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+        <h1 className="text-3xl font-semibold text-slate-900 dark:text-white">My Submissions</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">
           Review your submitted answers, status tracking, grades, and teacher feedback.
         </p>
       </div>

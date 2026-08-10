@@ -58,17 +58,17 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8 w-full">
       <div>
-        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">System Overview</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Real-time statistics across users, classes, subjects, and academic submissions.</p>
+        <h1 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">System Overview</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-normal">Real-time statistics across users, classes, subjects, and academic submissions.</p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-300 text-sm flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-300 text-sm font-normal flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <AlertCircle className="w-5 h-5 shrink-0 text-red-500" />
             <span>{error}</span>
           </div>
-          <button onClick={fetchStats} className="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-xs font-bold">
+          <button onClick={fetchStats} className="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-xs font-semibold">
             Retry
           </button>
         </div>
@@ -87,14 +87,14 @@ export default function AdminDashboardPage() {
             return (
               <div
                 key={idx}
-                className={`p-6 rounded-2xl bg-gradient-to-br ${card.color} border ${card.border} backdrop-blur-xl relative overflow-hidden group hover:scale-[1.02] transition-all duration-200 shadow-sm`}
+                className={`p-6 rounded-2xl bg-gradient-to-br ${card.color} border ${card.border} backdrop-blur-xl relative overflow-hidden group hover:scale-[1.02] transition-all duration-200 shadow-md`}
               >
                 <div className="flex items-center justify-between mb-4">
                   <Icon className={`w-7 h-7 ${card.text}`} />
-                  <span className={`text-xs font-extrabold uppercase tracking-wider ${card.text}`}>System Metric</span>
+                  <span className={`text-xs font-semibold uppercase tracking-wider ${card.text}`}>System Metric</span>
                 </div>
-                <p className="text-3xl font-black text-slate-900 dark:text-white mb-1">{card.value}</p>
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">{card.label}</p>
+                <p className="text-3xl font-semibold text-slate-900 dark:text-white mb-1">{card.value}</p>
+                <p className="text-xs font-normal text-slate-600 dark:text-slate-300">{card.label}</p>
               </div>
             );
           })}
@@ -102,49 +102,49 @@ export default function AdminDashboardPage() {
       )}
 
       <div>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Quick Management Shortcuts</h2>
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">Quick Management Shortcuts</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <Link
             href="/admin/users"
-            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all duration-200 group shadow-sm flex flex-col justify-between"
+            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all duration-200 group shadow-md flex flex-col justify-between"
           >
             <div>
               <Users className="w-7 h-7 text-indigo-500 mb-3" />
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Manage Users</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Create, update roles, or deactivate system accounts.</p>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Manage Users</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">Create, update roles, or deactivate system accounts.</p>
             </div>
           </Link>
 
           <Link
             href="/admin/classes"
-            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 transition-all duration-200 group shadow-sm flex flex-col justify-between"
+            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 transition-all duration-200 group shadow-md flex flex-col justify-between"
           >
             <div>
               <School className="w-7 h-7 text-amber-500 mb-3" />
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Manage Classes</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Configure grade sections, academic years, and class codes.</p>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Manage Classes</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">Configure grade sections, academic years, and class codes.</p>
             </div>
           </Link>
 
           <Link
             href="/admin/subjects"
-            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-pink-500/50 transition-all duration-200 group shadow-sm flex flex-col justify-between"
+            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-pink-500/50 transition-all duration-200 group shadow-md flex flex-col justify-between"
           >
             <div>
               <BookOpen className="w-7 h-7 text-pink-500 mb-3" />
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Manage Subjects</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Add course modules and academic curriculum subjects.</p>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Manage Subjects</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">Add course modules and academic curriculum subjects.</p>
             </div>
           </Link>
 
           <Link
             href="/admin/teacher-assignments"
-            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all duration-200 group shadow-sm flex flex-col justify-between"
+            className="p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all duration-200 group shadow-md flex flex-col justify-between"
           >
             <div>
               <UserCheck className="w-7 h-7 text-purple-500 mb-3" />
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Assign Teachers</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Link designated educators to class-subject pairs.</p>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Assign Teachers</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">Link designated educators to class-subject pairs.</p>
             </div>
           </Link>
         </div>
