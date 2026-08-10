@@ -40,7 +40,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 py-20 text-center flex-1 flex flex-col items-center justify-center">
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600 dark:from-white dark:via-slate-100 dark:to-slate-400 max-w-5xl leading-tight mb-8">
-          OnnoRokom Projukti Task Management Platform
+          OnnoRokom Projukti – Assignment & Task Management Platform
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed mb-12 font-normal">
@@ -107,7 +107,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-slate-200 dark:border-slate-800/80 py-8 px-6 text-center text-slate-500 dark:text-slate-500 text-sm transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-center">
-          <p>© 2026 OnnoRokom Projukti Task Management Platform.</p>
+          <p>© 2026 OnnoRokom Projukti – Assignment & Task Management Platform.</p>
         </div>
       </footer>
     </main>

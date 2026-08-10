@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "OnnoRokom Projukti Task Management Platform",
-  description: "OnnoRokom Projukti Task Management Platform",
+  title: "OnnoRokom Projukti – Assignment & Task Management Platform",
+  description: "OnnoRokom Projukti – Assignment & Task Management Platform",
 };
 
 export default function RootLayout({
