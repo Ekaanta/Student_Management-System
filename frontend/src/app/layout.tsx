@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "OnnoRokom Projukti Student Management Platform",
-  description: "OnnoRokom Projukti Student Management Platform",
+  title: "OnnoRokom Projukti Task Management Platform",
+  description: "OnnoRokom Projukti Task Management Platform",
 };
 
 export default function RootLayout({
