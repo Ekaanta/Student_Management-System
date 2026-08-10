@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { StudentAssignmentDto, StudentClassDto } from "@/types";
+import { BookOpen } from "lucide-react";
 
 export default function StudentAssignmentsPage() {
   const [assignments, setAssignments] = useState<StudentAssignmentDto[]>([]);
@@ -50,7 +51,7 @@ export default function StudentAssignmentsPage() {
   });
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       <div>
         <h1 className="text-3xl font-black text-slate-900 dark:text-white">My Coursework & Assignments</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
@@ -106,8 +107,8 @@ export default function StudentAssignmentsPage() {
           <div className="w-8 h-8 border-4 border-pink-500/20 border-t-pink-500 rounded-full animate-spin" />
         </div>
       ) : filteredAssignments.length === 0 ? (
-        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <span className="text-4xl block mb-3">📚</span>
+        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+          <BookOpen className="w-12 h-12 text-slate-400 mb-3" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">No coursework found</h3>
           <p className="text-slate-400 text-sm">
             {searchQuery || selectedClassId || selectedStatusFilter

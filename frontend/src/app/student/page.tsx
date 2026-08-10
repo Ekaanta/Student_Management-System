@@ -4,7 +4,16 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { useAuth } from "@/lib/auth-context";
-import { StudentAssignmentDto, StudentClassDto, SubmissionStatus } from "@/types";
+import { StudentAssignmentDto, StudentClassDto } from "@/types";
+import {
+  GraduationCap,
+  Clock,
+  CheckCircle2,
+  Award,
+  Sparkles,
+  School,
+  ArrowRight,
+} from "lucide-react";
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -37,7 +46,6 @@ export default function StudentDashboard() {
   const pendingAssignments = assignments.filter((a) => !a.hasSubmitted && !a.isOverdue);
   const submittedAssignments = assignments.filter((a) => a.hasSubmitted);
   const gradedAssignments = assignments.filter((a) => a.studentGrade !== null && a.studentGrade !== undefined);
-  const overdueAssignments = assignments.filter((a) => a.isOverdue);
 
   if (isLoading) {
     return (
@@ -51,12 +59,12 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {/* Welcome Banner */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-pink-900/40 via-purple-900/40 to-slate-900/80 p-8 rounded-3xl border border-pink-800/40">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-pink-400">Student Portal</span>
-          <h1 className="text-3xl font-black text-white mt-1">Welcome, {user?.firstName}! 👋</h1>
+          <h1 className="text-3xl font-black text-white mt-1">Welcome, {user?.firstName}!</h1>
           <p className="text-slate-400 text-sm mt-1">
             Track active coursework across your enrolled classes, submit assignments before deadlines, and view teacher feedback.
           </p>
@@ -64,9 +72,10 @@ export default function StudentDashboard() {
         <div className="flex items-center space-x-3 shrink-0">
           <Link
             href="/student/assignments"
-            className="px-5 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 transition-all"
+            className="px-5 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 transition-all inline-flex items-center space-x-2"
           >
-            Browse Coursework →
+            <span>Browse Coursework</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
@@ -82,7 +91,9 @@ export default function StudentDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Enrolled Classes</span>
-            <span className="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-500 flex items-center justify-center font-bold">🎓</span>
+            <div className="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-500 flex items-center justify-center font-bold">
+              <GraduationCap className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-slate-900 dark:text-white mt-4">{classes.length}</p>
           <p className="text-xs text-slate-400 mt-1">Active class sections</p>
@@ -91,7 +102,9 @@ export default function StudentDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Pending Tasks</span>
-            <span className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">⏳</span>
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">
+              <Clock className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-amber-600 dark:text-amber-400 mt-4">{pendingAssignments.length}</p>
           <p className="text-xs text-slate-400 mt-1">Due soon for submission</p>
@@ -100,7 +113,9 @@ export default function StudentDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Submitted Work</span>
-            <span className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold">✅</span>
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-4">{submittedAssignments.length}</p>
           <p className="text-xs text-slate-400 mt-1">Completed submissions</p>
@@ -109,7 +124,9 @@ export default function StudentDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Graded Results</span>
-            <span className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold">⭐</span>
+            <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold">
+              <Award className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-purple-600 dark:text-purple-400 mt-4">{gradedAssignments.length}</p>
           <p className="text-xs text-slate-400 mt-1">Reviewed by teacher</p>
@@ -122,14 +139,15 @@ export default function StudentDashboard() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">Active Coursework</h2>
-            <Link href="/student/assignments" className="text-xs font-bold text-pink-500 hover:text-pink-400">
-              View All Coursework →
+            <Link href="/student/assignments" className="text-xs font-bold text-pink-500 hover:text-pink-400 flex items-center space-x-1">
+              <span>View All Coursework</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {assignments.length === 0 ? (
-            <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-              <span className="text-4xl block mb-3">🎉</span>
+            <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+              <Sparkles className="w-12 h-12 text-slate-400 mb-3" />
               <p className="text-slate-300 font-bold mb-1">No active assignments</p>
               <p className="text-xs text-slate-500">All coursework is currently up to date.</p>
             </div>
@@ -188,8 +206,8 @@ export default function StudentDashboard() {
           </div>
 
           {classes.length === 0 ? (
-            <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-              <span className="text-3xl block mb-2">🏫</span>
+            <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+              <School className="w-10 h-10 text-slate-400 mb-2" />
               <p className="text-slate-400 text-xs">You are not enrolled in any classes yet.</p>
             </div>
           ) : (

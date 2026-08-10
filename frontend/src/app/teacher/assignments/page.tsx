@@ -4,6 +4,14 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { AssignmentDto, AssignmentStatus, TeacherClassSubjectDto } from "@/types";
+import {
+  Plus,
+  FileText,
+  Inbox,
+  Send,
+  Edit,
+  Trash2,
+} from "lucide-react";
 
 export default function TeacherAssignmentsPage() {
   const [assignments, setAssignments] = useState<AssignmentDto[]>([]);
@@ -68,7 +76,7 @@ export default function TeacherAssignmentsPage() {
   });
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-black text-slate-900 dark:text-white">Assignments</h1>
@@ -80,7 +88,7 @@ export default function TeacherAssignmentsPage() {
           href="/teacher/assignments/create"
           className="px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition-all duration-200 inline-flex items-center space-x-2 shrink-0"
         >
-          <span>➕</span>
+          <Plus className="w-4 h-4" />
           <span>Create Assignment</span>
         </Link>
       </div>
@@ -132,8 +140,8 @@ export default function TeacherAssignmentsPage() {
           <div className="w-8 h-8 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin" />
         </div>
       ) : filteredAssignments.length === 0 ? (
-        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <span className="text-4xl block mb-3">📝</span>
+        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+          <FileText className="w-12 h-12 text-slate-400 mb-3" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">No assignments found</h3>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             {searchQuery || selectedClassSubjectId || selectedStatus
@@ -191,31 +199,35 @@ export default function TeacherAssignmentsPage() {
                     <td className="p-4">
                       <Link
                         href={`/teacher/assignments/${a.id}/submissions`}
-                        className="px-3 py-1 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 hover:bg-purple-600 hover:text-white text-xs font-bold transition-all"
+                        className="inline-flex items-center space-x-1 px-3 py-1 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 hover:bg-purple-600 hover:text-white text-xs font-bold transition-all"
                       >
-                        📥 {a.submissionsCount || 0} Submissions
+                        <Inbox className="w-3.5 h-3.5" />
+                        <span>{a.submissionsCount || 0} Submissions</span>
                       </Link>
                     </td>
                     <td className="p-4 text-right space-x-2 shrink-0">
                       {a.status === AssignmentStatus.Draft && (
                         <button
                           onClick={() => handlePublish(a.id)}
-                          className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-colors"
+                          className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-colors"
                         >
-                          🚀 Publish
+                          <Send className="w-3.5 h-3.5" />
+                          <span>Publish</span>
                         </button>
                       )}
                       <Link
                         href={`/teacher/assignments/${a.id}/edit`}
-                        className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold transition-colors"
+                        className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold transition-colors"
                       >
-                        ✏️ Edit
+                        <Edit className="w-3.5 h-3.5" />
+                        <span>Edit</span>
                       </Link>
                       <button
                         onClick={() => setDeleteTarget(a)}
-                        className="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-600 hover:text-white text-red-500 text-xs font-bold transition-colors"
+                        className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-600 hover:text-white text-red-500 text-xs font-bold transition-colors"
                       >
-                        🗑️ Delete
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Delete</span>
                       </button>
                     </td>
                   </tr>

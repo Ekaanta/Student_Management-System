@@ -5,12 +5,19 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth, isStudentRole, isAdminRole } from "@/lib/auth-context";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  LayoutDashboard,
+  BookOpen,
+  Inbox,
+  User,
+  LogOut,
+} from "lucide-react";
 
 const NAV_ITEMS = [
-  { name: "Dashboard", href: "/student", icon: "📊" },
-  { name: "My Coursework", href: "/student/assignments", icon: "📚" },
-  { name: "My Submissions", href: "/student/submissions", icon: "📥" },
-  { name: "My Profile", href: "/student/profile", icon: "👤" },
+  { name: "Dashboard", href: "/student", icon: LayoutDashboard },
+  { name: "My Coursework", href: "/student/assignments", icon: BookOpen },
+  { name: "My Submissions", href: "/student/submissions", icon: Inbox },
+  { name: "My Profile", href: "/student/profile", icon: User },
 ];
 
 export default function StudentLayout({ children }: { children: React.ReactNode }) {
@@ -56,6 +63,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
 
           <nav className="space-y-1.5">
             {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -67,7 +75,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800/60"
                   }`}
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  <Icon className="w-5 h-5 shrink-0" />
                   <span>{item.name}</span>
                 </Link>
               );
@@ -105,16 +113,16 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
             <button
               onClick={logout}
               title="Sign out"
-              className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors shrink-0"
+              className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors shrink-0 flex items-center justify-center"
             >
-              🚪
+              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-8 overflow-y-auto max-w-7xl">
+      <main className="flex-1 p-8 overflow-y-auto w-full min-w-0">
         {children}
       </main>
     </div>

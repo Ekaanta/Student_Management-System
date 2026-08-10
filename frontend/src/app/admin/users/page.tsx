@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api-client";
 import { UserRole } from "@/types";
+import { Plus, Search, Users, X } from "lucide-react";
 
 interface UserDetail {
   id: string;
@@ -140,7 +141,7 @@ export default function AdminUsersPage() {
           onClick={() => setIsModalOpen(true)}
           className="px-5 py-2.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 transition-all flex items-center space-x-2 self-start sm:self-auto"
         >
-          <span>➕</span>
+          <Plus className="w-4 h-4" />
           <span>Add New User</span>
         </button>
       </div>
@@ -161,7 +162,7 @@ export default function AdminUsersPage() {
             placeholder="Search by name or email..."
             className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
           />
-          <span className="absolute left-3.5 top-3 text-slate-400 text-sm">🔍</span>
+          <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
         </div>
 
         <div className="flex space-x-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
@@ -191,8 +192,8 @@ export default function AdminUsersPage() {
           Loading user records...
         </div>
       ) : filteredUsers.length === 0 ? (
-        <div className="py-16 text-center rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60">
-          <span className="text-4xl mb-3 block">👥</span>
+        <div className="py-16 text-center rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 flex flex-col items-center justify-center">
+          <Users className="w-12 h-12 text-slate-400 mb-3" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">No users found</h3>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Try adjusting your search query or role filter.</p>
         </div>
@@ -253,7 +254,9 @@ export default function AdminUsersPage() {
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">Add New System User</h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg">✕</button>
+              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg">
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
             {modalError && (

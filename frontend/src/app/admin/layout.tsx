@@ -5,14 +5,23 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth, isAdminRole } from "@/lib/auth-context";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  LayoutDashboard,
+  Users,
+  School,
+  BookOpen,
+  UserCheck,
+  User,
+  LogOut,
+} from "lucide-react";
 
 const NAV_ITEMS = [
-  { name: "Overview", href: "/admin", icon: "📊" },
-  { name: "User Management", href: "/admin/users", icon: "👥" },
-  { name: "Class Management", href: "/admin/classes", icon: "🏫" },
-  { name: "Subject Management", href: "/admin/subjects", icon: "📖" },
-  { name: "Teacher Assignments", href: "/admin/teacher-assignments", icon: "👨‍🏫" },
-  { name: "My Profile", href: "/admin/profile", icon: "👤" },
+  { name: "Overview", href: "/admin", icon: LayoutDashboard },
+  { name: "User Management", href: "/admin/users", icon: Users },
+  { name: "Class Management", href: "/admin/classes", icon: School },
+  { name: "Subject Management", href: "/admin/subjects", icon: BookOpen },
+  { name: "Teacher Assignments", href: "/admin/teacher-assignments", icon: UserCheck },
+  { name: "My Profile", href: "/admin/profile", icon: User },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -56,6 +65,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
           <nav className="space-y-1.5">
             {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -67,7 +77,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800/60"
                   }`}
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  <Icon className="w-5 h-5 shrink-0" />
                   <span>{item.name}</span>
                 </Link>
               );
@@ -105,16 +115,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <button
               onClick={logout}
               title="Sign out"
-              className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors shrink-0"
+              className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors shrink-0 flex items-center justify-center"
             >
-              🚪
+              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>
       </aside>
 
       {/* Main Page Area */}
-      <main className="flex-1 p-8 overflow-y-auto max-w-7xl">
+      <main className="flex-1 p-8 overflow-y-auto w-full min-w-0">
         {children}
       </main>
     </div>

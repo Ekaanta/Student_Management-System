@@ -5,6 +5,15 @@ import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { useAuth } from "@/lib/auth-context";
 import { AssignmentDto, AssignmentStatus, TeacherClassSubjectDto } from "@/types";
+import {
+  Plus,
+  School,
+  Send,
+  FileText,
+  Inbox,
+  BookOpen,
+  ArrowRight,
+} from "lucide-react";
 
 export default function TeacherDashboard() {
   const { user } = useAuth();
@@ -54,7 +63,7 @@ export default function TeacherDashboard() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {/* Top Banner Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-purple-900/40 via-indigo-900/40 to-slate-900/80 p-8 rounded-3xl border border-purple-800/40">
         <div>
@@ -69,7 +78,7 @@ export default function TeacherDashboard() {
             href="/teacher/assignments/create"
             className="px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 hover:shadow-purple-500/40 transition-all duration-200 flex items-center space-x-2"
           >
-            <span>➕</span>
+            <Plus className="w-4 h-4" />
             <span>Create Assignment</span>
           </Link>
         </div>
@@ -86,7 +95,9 @@ export default function TeacherDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">My Classes & Subjects</span>
-            <span className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold">🏫</span>
+            <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold">
+              <School className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-slate-900 dark:text-white mt-4">{classSubjects.length}</p>
           <p className="text-xs text-slate-400 mt-1">Assigned courses across school</p>
@@ -95,7 +106,9 @@ export default function TeacherDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Published Assignments</span>
-            <span className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold">🚀</span>
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold">
+              <Send className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-4">{publishedCount}</p>
           <p className="text-xs text-slate-400 mt-1">Active coursework visible to students</p>
@@ -104,7 +117,9 @@ export default function TeacherDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Draft Assignments</span>
-            <span className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">📝</span>
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold">
+              <FileText className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-amber-600 dark:text-amber-400 mt-4">{draftCount}</p>
           <p className="text-xs text-slate-400 mt-1">Unpublished work in progress</p>
@@ -113,7 +128,9 @@ export default function TeacherDashboard() {
         <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Submissions</span>
-            <span className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold">📥</span>
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold">
+              <Inbox className="w-5 h-5" />
+            </div>
           </div>
           <p className="text-3xl font-black text-blue-600 dark:text-blue-400 mt-4">{totalSubmissions}</p>
           <p className="text-xs text-slate-400 mt-1">Student responses received</p>
@@ -126,21 +143,23 @@ export default function TeacherDashboard() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">Recent Assignments</h2>
-            <Link href="/teacher/assignments" className="text-xs font-bold text-purple-500 hover:text-purple-400">
-              View All Assignments →
+            <Link href="/teacher/assignments" className="text-xs font-bold text-purple-500 hover:text-purple-400 flex items-center space-x-1">
+              <span>View All Assignments</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {assignments.length === 0 ? (
-            <div className="p-12 text-center bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-              <span className="text-4xl block mb-3">📚</span>
+            <div className="p-12 text-center bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center">
+              <BookOpen className="w-12 h-12 text-slate-400 mb-3" />
               <p className="text-slate-300 font-bold mb-1">No assignments created yet</p>
               <p className="text-xs text-slate-500 mb-6">Create your first assignment and assign it to a class & subject.</p>
               <Link
                 href="/teacher/assignments/create"
-                className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm"
+                className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm inline-flex items-center space-x-2"
               >
-                Create Assignment Now
+                <Plus className="w-4 h-4" />
+                <span>Create Assignment Now</span>
               </Link>
             </div>
           ) : (
@@ -187,14 +206,15 @@ export default function TeacherDashboard() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">Assigned Classes</h2>
-            <Link href="/teacher/classes" className="text-xs font-bold text-purple-500 hover:text-purple-400">
-              View All →
+            <Link href="/teacher/classes" className="text-xs font-bold text-purple-500 hover:text-purple-400 flex items-center space-x-1">
+              <span>View All</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {classSubjects.length === 0 ? (
-            <div className="p-8 text-center bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-              <span className="text-3xl block mb-2">🏫</span>
+            <div className="p-8 text-center bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center">
+              <School className="w-10 h-10 text-slate-400 mb-2" />
               <p className="text-slate-400 text-xs">No classes or subjects assigned to you yet by the Admin.</p>
             </div>
           ) : (

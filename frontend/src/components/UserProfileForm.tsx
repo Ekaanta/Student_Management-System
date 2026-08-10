@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { apiClient } from "@/lib/api-client";
 import { AuthResponse, UserRole } from "@/types";
+import { CheckCircle2, AlertCircle, Save } from "lucide-react";
 
 export function UserProfileForm() {
   const { user, updateUser } = useAuth();
@@ -109,7 +110,7 @@ export function UserProfileForm() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       <div>
         <h1 className="text-3xl font-black text-slate-900 dark:text-white">Account Profile Settings</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
@@ -119,14 +120,14 @@ export function UserProfileForm() {
 
       {successMessage && (
         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-sm font-bold flex items-center space-x-2">
-          <span>✅</span>
+          <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {errorMessage && (
         <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold flex items-center space-x-2">
-          <span>⚠️</span>
+          <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -281,9 +282,10 @@ export function UserProfileForm() {
           <button
             type="submit"
             disabled={isSaving}
-            className="px-8 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition-all"
+            className="px-8 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition-all flex items-center space-x-2"
           >
-            {isSaving ? "Saving Profile..." : "Save Profile Changes"}
+            <Save className="w-4 h-4" />
+            <span>{isSaving ? "Saving Profile..." : "Save Profile Changes"}</span>
           </button>
         </div>
       </form>

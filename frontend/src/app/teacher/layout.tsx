@@ -5,13 +5,21 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth, isTeacherRole, isAdminRole } from "@/lib/auth-context";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  LayoutDashboard,
+  School,
+  FileText,
+  PlusCircle,
+  User,
+  LogOut,
+} from "lucide-react";
 
 const NAV_ITEMS = [
-  { name: "Dashboard", href: "/teacher", icon: "📊" },
-  { name: "My Classes & Subjects", href: "/teacher/classes", icon: "🏫" },
-  { name: "Assignments", href: "/teacher/assignments", icon: "📝" },
-  { name: "Create Assignment", href: "/teacher/assignments/create", icon: "➕" },
-  { name: "My Profile", href: "/teacher/profile", icon: "👤" },
+  { name: "Dashboard", href: "/teacher", icon: LayoutDashboard },
+  { name: "My Classes & Subjects", href: "/teacher/classes", icon: School },
+  { name: "Assignments", href: "/teacher/assignments", icon: FileText },
+  { name: "Create Assignment", href: "/teacher/assignments/create", icon: PlusCircle },
+  { name: "My Profile", href: "/teacher/profile", icon: User },
 ];
 
 export default function TeacherLayout({ children }: { children: React.ReactNode }) {
@@ -57,6 +65,7 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
 
           <nav className="space-y-1.5">
             {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -68,7 +77,7 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800/60"
                   }`}
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  <Icon className="w-5 h-5 shrink-0" />
                   <span>{item.name}</span>
                 </Link>
               );
@@ -106,16 +115,16 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
             <button
               onClick={logout}
               title="Sign out"
-              className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors shrink-0"
+              className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors shrink-0 flex items-center justify-center"
             >
-              🚪
+              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-8 overflow-y-auto max-w-7xl">
+      <main className="flex-1 p-8 overflow-y-auto w-full min-w-0">
         {children}
       </main>
     </div>

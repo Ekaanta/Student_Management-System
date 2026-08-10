@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { SubmissionDto, SubmissionStatus } from "@/types";
+import { Inbox } from "lucide-react";
 
 export default function StudentSubmissionsPage() {
   const [submissions, setSubmissions] = useState<SubmissionDto[]>([]);
@@ -40,7 +41,7 @@ export default function StudentSubmissionsPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       <div>
         <h1 className="text-3xl font-black text-slate-900 dark:text-white">My Submissions</h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
@@ -60,8 +61,8 @@ export default function StudentSubmissionsPage() {
           <div className="w-8 h-8 border-4 border-pink-500/20 border-t-pink-500 rounded-full animate-spin" />
         </div>
       ) : submissions.length === 0 ? (
-        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <span className="text-4xl block mb-3">📥</span>
+        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+          <Inbox className="w-12 h-12 text-slate-400 mb-3" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">No submissions found</h3>
           <p className="text-slate-400 text-sm mb-6">You have not submitted any coursework yet.</p>
           <Link href="/student/assignments" className="px-5 py-2.5 rounded-xl bg-pink-600 text-white font-bold text-sm">
