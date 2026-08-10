@@ -4,11 +4,11 @@ A production-grade, enterprise-ready **Role-Based Assignment & Submission Manage
 
 ---
 
-## 🌐 Live Production Deployments
+## Live Production Deployments
 
-- 🚀 **Live Frontend Portal (Vercel)**: **[https://student-management-system-durjoy.vercel.app](https://student-management-system-durjoy.vercel.app)**
-- ⚡ **Live Backend Web API (Render)**: **[https://student-management-backend-36k1.onrender.com](https://student-management-backend-36k1.onrender.com)**
-- 📖 **Interactive Swagger Docs**: **[https://student-management-backend-36k1.onrender.com/swagger](https://student-management-backend-36k1.onrender.com/swagger)**
+- **Live Frontend Portal (Vercel)**: **[https://student-management-system-durjoy.vercel.app](https://student-management-system-durjoy.vercel.app)**
+- **Live Backend Web API (Render)**: **[https://student-management-backend-36k1.onrender.com](https://student-management-backend-36k1.onrender.com)**
+- **Interactive Swagger Docs**: **[https://student-management-backend-36k1.onrender.com/swagger](https://student-management-backend-36k1.onrender.com/swagger)**
 
 ---
 
@@ -31,26 +31,26 @@ This system resolves these pain points by offering a unified role-based web appl
 
 ## 3. Key System Features
 
-- 🔐 **Secure Role-Based Authentication**: BCrypt password hashing and JWT token authorization.
-- 👑 **Admin Governance Dashboard**: Full CRUD management for Users (Admins, Teachers, Students), School Classes, Subjects, and Teacher assignments.
-- 📚 **Teacher Coursework Management**: Create coursework as **Draft** or **Published**, edit assignments, set max marks, enforce future due dates, review student submissions, and assign numerical scores with feedback.
-- 🎓 **Student Coursework Portal**: View enrolled classes, submit answers with optional attachment URLs, update answers prior to deadline, and inspect teacher marks and feedback.
-- ⏳ **Automated Deadline Enforcement**: Strict backend rejection (`400 Bad Request`) for any submission or answer modification attempt past `DueDateUtc`.
-- ⚡ **Real-Time MongoDB Integration**: Automatic real-time persistence on `ApplicationDbContext.SaveChangesAsync()` to MongoDB Atlas document collections.
-- 🌗 **Responsive Modern UI**: Dark and Light theme toggle support built with TailwindCSS.
+- **Secure Role-Based Authentication**: BCrypt password hashing and JWT token authorization.
+- **Admin Governance Dashboard**: Full CRUD management for Users (Admins, Teachers, Students), School Classes, Subjects, and Teacher assignments.
+- **Teacher Coursework Management**: Create coursework as **Draft** or **Published**, edit assignments, set max marks, enforce future due dates, review student submissions, and assign numerical scores with feedback.
+-  **Student Coursework Portal**: View enrolled classes, submit answers with optional attachment URLs, update answers prior to deadline, and inspect teacher marks and feedback.
+-  **Automated Deadline Enforcement**: Strict backend rejection (`400 Bad Request`) for any submission or answer modification attempt past `DueDateUtc`.
+-  **Real-Time MongoDB Integration**: Automatic real-time persistence on `ApplicationDbContext.SaveChangesAsync()` to MongoDB Atlas document collections.
+- **Responsive Modern UI**: Dark and Light theme toggle support built with TailwindCSS.
 
 ---
 
 ## 4. User Roles & Permissions
 
-### 👑 Administrator (`Admin`)
+### Administrator (`Admin`)
 - View global system overview metrics (total users, teachers, students, classes, subjects, assignments, submissions).
 - Full User Management (Create user, update details, activate/deactivate account, permanently delete user).
 - Manage School Classes & Courses (Create, edit, delete).
 - Manage Academic Subjects (Create, edit, delete).
 - Assign Teachers to Class-Subject pairings and unassign them.
 
-### 📚 Teacher (`Teacher`)
+### Teacher (`Teacher`)
 - View assigned classes and subjects.
 - Create assignments assigned to their authorized Class-Subject pairings.
 - Save coursework as **Draft** or **Publish** immediately to students.
@@ -59,7 +59,7 @@ This system resolves these pain points by offering a unified role-based web appl
 - Review student submissions for owned assignments.
 - Grade submissions (`0 <= Score <= MaxScore`) and record detailed feedback text.
 
-### 🎓 Student (`Student`)
+### Student (`Student`)
 - View active class enrollments.
 - View published coursework for enrolled classes only.
 - View detailed assignment instructions, max marks, and due dates.
