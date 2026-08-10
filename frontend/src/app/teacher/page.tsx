@@ -65,7 +65,7 @@ export default function TeacherDashboard() {
   return (
     <div className="space-y-8 w-full">
       {/* Top Banner Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-slate-900 bg-gradient-to-r from-slate-900 via-purple-950 to-indigo-950 p-8 rounded-3xl border border-purple-800/50 shadow-md">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-slate-900 bg-gradient-to-r from-slate-900 via-purple-950 to-indigo-950 p-8 rounded-lg border border-purple-800/50">
         <div>
           <span className="text-xs font-semibold uppercase tracking-wider text-purple-300">Educator Workspace</span>
           <h1 className="text-3xl font-semibold text-white mt-1">Welcome back, {user?.firstName}!</h1>
@@ -76,7 +76,7 @@ export default function TeacherDashboard() {
         <div className="flex items-center space-x-3 shrink-0">
           <Link
             href="/teacher/assignments/create"
-            className="px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-md shadow-purple-600/30 hover:shadow-purple-500/40 transition-all duration-200 flex items-center space-x-2"
+            className="px-5 py-3 rounded-md bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm transition-all duration-200 flex items-center space-x-2"
           >
             <Plus className="w-4 h-4" />
             <span>Create Assignment</span>
@@ -85,17 +85,17 @@ export default function TeacherDashboard() {
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-sm font-normal">
+        <div className="p-4 rounded-md bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-sm font-normal">
           {error}
         </div>
       )}
 
       {/* Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md">
+        <div className="p-6 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">My Classes & Subjects</span>
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-semibold">
+            <div className="w-10 h-10 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-semibold">
               <School className="w-5 h-5" />
             </div>
           </div>
@@ -103,10 +103,10 @@ export default function TeacherDashboard() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-normal">Assigned courses across school</p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md">
+        <div className="p-6 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Published Assignments</span>
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-semibold">
+            <div className="w-10 h-10 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-semibold">
               <Send className="w-5 h-5" />
             </div>
           </div>
@@ -114,10 +114,10 @@ export default function TeacherDashboard() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-normal">Active coursework visible to students</p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md">
+        <div className="p-6 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Draft Assignments</span>
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-semibold">
+            <div className="w-10 h-10 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-semibold">
               <FileText className="w-5 h-5" />
             </div>
           </div>
@@ -125,10 +125,10 @@ export default function TeacherDashboard() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-normal">Unpublished work in progress</p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md">
+        <div className="p-6 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Submissions</span>
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-semibold">
+            <div className="w-10 h-10 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-semibold">
               <Inbox className="w-5 h-5" />
             </div>
           </div>
@@ -150,20 +150,20 @@ export default function TeacherDashboard() {
           </div>
 
           {assignments.length === 0 ? (
-            <div className="p-12 text-center bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center">
+            <div className="p-12 text-center bg-white dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center">
               <BookOpen className="w-12 h-12 text-slate-400 mb-3" />
               <p className="text-slate-300 font-semibold mb-1">No assignments created yet</p>
               <p className="text-xs text-slate-500 font-normal mb-6">Create your first assignment and assign it to a class & subject.</p>
               <Link
                 href="/teacher/assignments/create"
-                className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm inline-flex items-center space-x-2"
+                className="px-5 py-2.5 rounded-md bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm inline-flex items-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>Create Assignment Now</span>
               </Link>
             </div>
           ) : (
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-md">
+            <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800/80 overflow-hidden">
               <div className="divide-y divide-slate-200 dark:divide-slate-800">
                 {assignments.slice(0, 5).map((item) => (
                   <div key={item.id} className="p-5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
@@ -171,9 +171,9 @@ export default function TeacherDashboard() {
                       <div className="flex items-center space-x-2">
                         <span className="font-semibold text-slate-900 dark:text-white">{item.title}</span>
                         {item.status === AssignmentStatus.Published ? (
-                          <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-semibold">Published</span>
+                          <span className="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-semibold">Published</span>
                         ) : (
-                          <span className="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs font-semibold">Draft</span>
+                          <span className="px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs font-semibold">Draft</span>
                         )}
                       </div>
                       <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">
@@ -184,13 +184,13 @@ export default function TeacherDashboard() {
                       <span className="text-xs text-slate-400 font-normal">{item.maxScore} Max Marks</span>
                       <Link
                         href={`/teacher/assignments/${item.id}`}
-                        className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-purple-600 hover:text-white text-xs font-semibold transition-colors"
+                        className="px-3 py-1.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-purple-600 hover:text-white text-xs font-semibold transition-colors"
                       >
                         Details
                       </Link>
                       <Link
                         href={`/teacher/assignments/${item.id}/submissions`}
-                        className="px-3 py-1.5 rounded-lg bg-purple-600/10 border border-purple-500/20 text-purple-600 dark:text-purple-300 hover:bg-purple-600 hover:text-white text-xs font-semibold transition-colors"
+                        className="px-3 py-1.5 rounded bg-purple-600/10 border border-purple-500/20 text-purple-600 dark:text-purple-300 hover:bg-purple-600 hover:text-white text-xs font-semibold transition-colors"
                       >
                         Submissions ({item.submissionsCount || 0})
                       </Link>
@@ -213,19 +213,19 @@ export default function TeacherDashboard() {
           </div>
 
           {classSubjects.length === 0 ? (
-            <div className="p-8 text-center bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center">
+            <div className="p-8 text-center bg-white dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center">
               <School className="w-10 h-10 text-slate-400 mb-2" />
               <p className="text-slate-400 text-xs font-normal">No classes or subjects assigned to you yet by the Admin.</p>
             </div>
           ) : (
             <div className="space-y-3">
               {classSubjects.map((cs) => (
-                <div key={cs.id} className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 shadow-md flex items-center justify-between">
+                <div key={cs.id} className="p-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
                   <div>
                     <p className="font-semibold text-slate-900 dark:text-white text-sm">{cs.className} ({cs.classCode})</p>
                     <p className="text-xs text-purple-500 font-normal">{cs.subjectName} ({cs.subjectCode})</p>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-normal">
+                  <span className="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-normal">
                     {cs.totalStudentsEnrolled} Students
                   </span>
                 </div>

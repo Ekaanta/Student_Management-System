@@ -52,7 +52,7 @@ export default function LoginPage() {
       </div>
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <Link href="/" className="inline-flex items-center space-x-3 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-indigo-500/30">
+          <div className="w-12 h-12 rounded-lg bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-xl">
             OP
           </div>
           <span className="text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
@@ -69,9 +69,9 @@ export default function LoginPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 py-8 px-6 shadow-2xl rounded-2xl sm:px-10 backdrop-blur-xl space-y-6">
+        <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 py-8 px-6 rounded-lg sm:px-10 backdrop-blur-xl space-y-6">
           {error && (
-            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-300 text-sm flex items-center space-x-3">
+            <div className="p-4 rounded-md bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-300 text-sm flex items-center space-x-3">
               <AlertCircle className="w-5 h-5 shrink-0" />
               <span>{error}</span>
             </div>

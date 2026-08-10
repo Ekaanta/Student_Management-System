@@ -119,20 +119,20 @@ export function UserProfileForm() {
       </div>
 
       {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-sm font-bold flex items-center space-x-2">
+        <div className="p-4 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-sm font-bold flex items-center space-x-2">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold flex items-center space-x-2">
+        <div className="p-4 rounded-md bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold flex items-center space-x-2">
           <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{errorMessage}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-8">
+      <form onSubmit={handleSubmit} className="p-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-8">
         {/* Profile Picture Upload Section */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 pb-8 border-b border-slate-100 dark:border-slate-800">
           <div className="relative shrink-0">
@@ -140,10 +140,10 @@ export function UserProfileForm() {
               <img
                 src={profilePictureUrl}
                 alt="Profile Avatar"
-                className="w-24 h-24 rounded-2xl object-cover border-2 border-indigo-500/40 shadow-md"
+                className="w-24 h-24 rounded-lg object-cover border-2 border-indigo-500/40"
               />
             ) : (
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 text-white text-3xl font-black flex items-center justify-center shadow-md">
+              <div className="w-24 h-24 rounded-lg bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 text-white text-3xl font-black flex items-center justify-center">
                 {user?.firstName?.[0] || "U"}
               </div>
             )}
@@ -158,7 +158,7 @@ export function UserProfileForm() {
             </div>
 
             <div className="flex items-center space-x-3">
-              <label className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md shadow-indigo-600/20 cursor-pointer transition-all">
+              <label className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs cursor-pointer transition-all">
                 Upload Photo
                 <input
                   type="file"
