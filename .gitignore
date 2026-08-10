@@ -11,6 +11,9 @@
 .env.*
 *.env
 render.yaml
+Dockerfile
+Dockerfile.*
+docker-compose*.yml
 appsettings.Development.json
 appsettings.Local.json
 appsettings.Secrets.json
