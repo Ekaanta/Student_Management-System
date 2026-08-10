@@ -4,6 +4,7 @@ import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { StudentAssignmentDto } from "@/types";
+import { AlertCircle, ArrowLeft, CheckCircle2, PenTool } from "lucide-react";
 
 export default function StudentAssignmentDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -39,8 +40,8 @@ export default function StudentAssignmentDetailsPage({ params }: { params: Promi
 
   if (error || !assignment) {
     return (
-      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
-        <span className="text-4xl">⚠️</span>
+      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 flex flex-col items-center justify-center">
+        <AlertCircle className="w-12 h-12 text-slate-400" />
         <h3 className="text-lg font-bold text-slate-900 dark:text-white">Assignment Not Found</h3>
         <p className="text-slate-400 text-sm">{error || "The requested assignment is not visible or you are not enrolled in this class."}</p>
         <Link href="/student/assignments" className="inline-block px-5 py-2.5 rounded-xl bg-pink-600 text-white font-bold text-sm">
@@ -51,12 +52,13 @@ export default function StudentAssignmentDetailsPage({ params }: { params: Promi
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <Link href="/student/assignments" className="text-xs font-bold text-pink-500 hover:text-pink-400 mb-2 inline-block">
-            ← Back to Coursework
+          <Link href="/student/assignments" className="text-xs font-bold text-pink-500 hover:text-pink-400 mb-2 inline-flex items-center space-x-1">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Coursework</span>
           </Link>
           <div className="flex items-center space-x-3 mb-2">
             <span className="text-xs font-bold text-pink-500">
@@ -70,9 +72,10 @@ export default function StudentAssignmentDetailsPage({ params }: { params: Promi
           {assignment.hasSubmitted ? (
             <Link
               href={`/student/submissions/${assignment.studentSubmissionId}`}
-              className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30"
+              className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 inline-flex items-center space-x-1.5"
             >
-              ✅ View My Submission
+              <CheckCircle2 className="w-4 h-4" />
+              <span>View My Submission</span>
             </Link>
           ) : assignment.isOverdue ? (
             <span className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 font-bold text-sm">
@@ -81,9 +84,10 @@ export default function StudentAssignmentDetailsPage({ params }: { params: Promi
           ) : (
             <Link
               href={`/student/assignments/${assignment.id}/submit`}
-              className="px-6 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30"
+              className="px-6 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 inline-flex items-center space-x-1.5"
             >
-              ✍️ Submit Answer Now
+              <PenTool className="w-4 h-4" />
+              <span>Submit Answer Now</span>
             </Link>
           )}
         </div>

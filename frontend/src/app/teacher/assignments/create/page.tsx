@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import { AssignmentDto, TeacherClassSubjectDto } from "@/types";
+import { ArrowLeft, AlertCircle, Save, Send } from "lucide-react";
 
 export default function CreateAssignmentPage() {
   const router = useRouter();
@@ -96,7 +97,7 @@ export default function CreateAssignmentPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-black text-slate-900 dark:text-white">Create Assignment</h1>
@@ -106,9 +107,10 @@ export default function CreateAssignmentPage() {
         </div>
         <Link
           href="/teacher/assignments"
-          className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors inline-flex items-center space-x-1.5"
         >
-          ← Back to Assignments
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Assignments</span>
         </Link>
       </div>
 
@@ -123,8 +125,8 @@ export default function CreateAssignmentPage() {
           <div className="w-8 h-8 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin" />
         </div>
       ) : classSubjects.length === 0 ? (
-        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <span className="text-4xl block mb-3">⚠️</span>
+        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+          <AlertCircle className="w-12 h-12 text-slate-400 mb-3" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">No assigned classes</h3>
           <p className="text-slate-400 text-sm">
             You cannot create an assignment because you have not been assigned to any class or subject yet.
@@ -214,17 +216,19 @@ export default function CreateAssignmentPage() {
               type="button"
               disabled={isSubmitting}
               onClick={() => handleSubmit(true)}
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-sm font-bold transition-all"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-sm font-bold transition-all inline-flex items-center justify-center space-x-1.5"
             >
-              💾 Save as Draft
+              <Save className="w-4 h-4" />
+              <span>Save as Draft</span>
             </button>
             <button
               type="button"
               disabled={isSubmitting}
               onClick={() => handleSubmit(false)}
-              className="w-full sm:w-auto px-8 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition-all"
+              className="w-full sm:w-auto px-8 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition-all inline-flex items-center justify-center space-x-1.5"
             >
-              {isSubmitting ? "Submitting..." : "🚀 Publish Assignment"}
+              <Send className="w-4 h-4" />
+              <span>{isSubmitting ? "Submitting..." : "Publish Assignment"}</span>
             </button>
           </div>
         </div>

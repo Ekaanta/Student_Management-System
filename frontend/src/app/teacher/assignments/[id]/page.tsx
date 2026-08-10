@@ -4,6 +4,7 @@ import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { AssignmentDto, AssignmentStatus } from "@/types";
+import { AlertCircle, Send, Edit, Inbox } from "lucide-react";
 
 export default function AssignmentDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -51,8 +52,8 @@ export default function AssignmentDetailsPage({ params }: { params: Promise<{ id
 
   if (error || !assignment) {
     return (
-      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
-        <span className="text-4xl">⚠️</span>
+      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 flex flex-col items-center justify-center">
+        <AlertCircle className="w-12 h-12 text-slate-400" />
         <h3 className="text-lg font-bold text-slate-900 dark:text-white">Assignment Not Found</h3>
         <p className="text-slate-400 text-sm">{error || "The requested assignment does not exist or you do not have permission to view it."}</p>
         <Link href="/teacher/assignments" className="inline-block px-5 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-sm">
@@ -63,7 +64,7 @@ export default function AssignmentDetailsPage({ params }: { params: Promise<{ id
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -88,22 +89,25 @@ export default function AssignmentDetailsPage({ params }: { params: Promise<{ id
           {assignment.status === AssignmentStatus.Draft && (
             <button
               onClick={handlePublish}
-              className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30"
+              className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 inline-flex items-center space-x-1.5"
             >
-              🚀 Publish Now
+              <Send className="w-4 h-4" />
+              <span>Publish Now</span>
             </button>
           )}
           <Link
             href={`/teacher/assignments/${assignment.id}/edit`}
-            className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm"
+            className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm inline-flex items-center space-x-1.5"
           >
-            ✏️ Edit
+            <Edit className="w-4 h-4" />
+            <span>Edit</span>
           </Link>
           <Link
             href={`/teacher/assignments/${assignment.id}/submissions`}
-            className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30"
+            className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 inline-flex items-center space-x-1.5"
           >
-            📥 Submissions ({assignment.submissionsCount || 0})
+            <Inbox className="w-4 h-4" />
+            <span>Submissions ({assignment.submissionsCount || 0})</span>
           </Link>
         </div>
       </div>

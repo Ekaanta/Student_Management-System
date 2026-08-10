@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import { SubmissionDto, SubmissionStatus } from "@/types";
+import { AlertCircle, ArrowLeft, Paperclip, Save } from "lucide-react";
 
 export default function SubmissionReviewPage({ params }: { params: Promise<{ submissionId: string }> }) {
   const resolvedParams = use(params);
@@ -101,8 +102,8 @@ export default function SubmissionReviewPage({ params }: { params: Promise<{ sub
 
   if (error && !submission) {
     return (
-      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4">
-        <span className="text-4xl">⚠️</span>
+      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 flex flex-col items-center justify-center">
+        <AlertCircle className="w-12 h-12 text-slate-400" />
         <h3 className="text-lg font-bold text-slate-900 dark:text-white">Submission Not Found</h3>
         <p className="text-slate-400 text-sm">{error}</p>
         <Link href="/teacher/assignments" className="inline-block px-5 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-sm">
@@ -115,13 +116,14 @@ export default function SubmissionReviewPage({ params }: { params: Promise<{ sub
   const maxScore = submission?.assignmentMaxScore ?? 100;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div>
           {submission?.assignmentId && (
-            <Link href={`/teacher/assignments/${submission.assignmentId}/submissions`} className="text-xs font-bold text-purple-500 hover:text-purple-400 mb-2 inline-block">
-              ← Back to Submissions List
+            <Link href={`/teacher/assignments/${submission.assignmentId}/submissions`} className="text-xs font-bold text-purple-500 hover:text-purple-400 mb-2 inline-flex items-center space-x-1">
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Submissions List</span>
             </Link>
           )}
           <h1 className="text-3xl font-black text-slate-900 dark:text-white">Review & Grade Submission</h1>
@@ -179,7 +181,8 @@ export default function SubmissionReviewPage({ params }: { params: Promise<{ sub
                     rel="noopener noreferrer"
                     className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-300 font-bold text-xs hover:bg-purple-600 hover:text-white transition-all"
                   >
-                    <span>📎 View Attached Document / Link</span>
+                    <Paperclip className="w-4 h-4" />
+                    <span>View Attached Document / Link</span>
                   </a>
                 </div>
               </div>
@@ -243,9 +246,10 @@ export default function SubmissionReviewPage({ params }: { params: Promise<{ sub
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition-all"
+              className="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition-all inline-flex items-center justify-center space-x-1.5"
             >
-              {isSubmitting ? "Saving Grade..." : "💾 Submit Grade & Feedback"}
+              <Save className="w-4 h-4" />
+              <span>{isSubmitting ? "Saving Grade..." : "Submit Grade & Feedback"}</span>
             </button>
           </form>
         </div>

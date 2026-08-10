@@ -4,6 +4,7 @@ import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { SubmissionDto } from "@/types";
+import { AlertCircle, ArrowLeft, Edit, Paperclip } from "lucide-react";
 
 export default function SubmissionDetailPage({ params }: { params: Promise<{ submissionId: string }> }) {
   const resolvedParams = use(params);
@@ -39,8 +40,8 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ sub
 
   if (error || !submission) {
     return (
-      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-w-md mx-auto">
-        <span className="text-4xl">⚠️</span>
+      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-w-md mx-auto flex flex-col items-center justify-center">
+        <AlertCircle className="w-12 h-12 text-slate-400" />
         <h3 className="text-lg font-bold text-slate-900 dark:text-white">Submission Not Found</h3>
         <p className="text-slate-400 text-sm">{error || "You do not have permission to view this submission."}</p>
         <Link href="/student/submissions" className="inline-block px-5 py-2.5 rounded-xl bg-pink-600 text-white font-bold text-sm">
@@ -51,12 +52,13 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ sub
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <Link href="/student/submissions" className="text-xs font-bold text-pink-500 hover:text-pink-400 mb-2 inline-block">
-            ← Back to My Submissions
+          <Link href="/student/submissions" className="text-xs font-bold text-pink-500 hover:text-pink-400 mb-2 inline-flex items-center space-x-1">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to My Submissions</span>
           </Link>
           <h1 className="text-3xl font-black text-slate-900 dark:text-white">{submission.assignmentTitle}</h1>
           <p className="text-xs text-slate-400 mt-1">
@@ -67,9 +69,10 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ sub
         <div className="flex items-center space-x-3 shrink-0">
           <Link
             href={`/student/submissions/${submission.id}/edit`}
-            className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm"
+            className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm inline-flex items-center space-x-1.5"
           >
-            ✏️ Edit Submission
+            <Edit className="w-4 h-4" />
+            <span>Edit Submission</span>
           </Link>
         </div>
       </div>
@@ -114,7 +117,8 @@ export default function SubmissionDetailPage({ params }: { params: Promise<{ sub
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-600 dark:text-pink-300 font-bold text-xs hover:bg-pink-600 hover:text-white transition-all"
             >
-              <span>📎 Open Attached Document / Link</span>
+              <Paperclip className="w-4 h-4" />
+              <span>Open Attached Document / Link</span>
             </a>
           </div>
         )}

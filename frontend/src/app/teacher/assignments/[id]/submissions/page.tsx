@@ -4,6 +4,7 @@ import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { AssignmentDto, SubmissionDto, SubmissionStatus } from "@/types";
+import { ArrowLeft, Inbox } from "lucide-react";
 
 export default function AssignmentSubmissionsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -56,12 +57,13 @@ export default function AssignmentSubmissionsPage({ params }: { params: Promise<
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <Link href="/teacher/assignments" className="text-xs font-bold text-purple-500 hover:text-purple-400 mb-2 inline-block">
-            ← Back to Assignments
+          <Link href="/teacher/assignments" className="text-xs font-bold text-purple-500 hover:text-purple-400 mb-2 inline-flex items-center space-x-1">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Assignments</span>
           </Link>
           <h1 className="text-3xl font-black text-slate-900 dark:text-white">
             Student Submissions
@@ -82,8 +84,8 @@ export default function AssignmentSubmissionsPage({ params }: { params: Promise<
 
       {/* Submissions List Table */}
       {submissions.length === 0 ? (
-        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <span className="text-4xl block mb-3">📥</span>
+        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+          <Inbox className="w-12 h-12 text-slate-400 mb-3" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">No submissions yet</h3>
           <p className="text-slate-400 text-sm">No students have submitted answers for this assignment yet.</p>
         </div>

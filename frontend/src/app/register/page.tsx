@@ -6,6 +6,7 @@ import { apiClient } from "@/lib/api-client";
 import { AuthResponse, UserRole } from "@/types";
 import { useAuth } from "@/lib/auth-context";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AlertCircle } from "lucide-react";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -68,7 +69,7 @@ export default function RegisterPage() {
         <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 py-8 px-6 shadow-2xl rounded-2xl sm:px-10 backdrop-blur-xl">
           {error && (
             <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-300 text-sm flex items-center space-x-3">
-              <span className="text-lg">⚠️</span>
+              <AlertCircle className="w-5 h-5 shrink-0" />
               <span>{error}</span>
             </div>
           )}

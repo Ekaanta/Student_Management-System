@@ -6,6 +6,7 @@ import { apiClient } from "@/lib/api-client";
 import { AuthResponse } from "@/types";
 import { useAuth } from "@/lib/auth-context";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AlertCircle, Shield, BookOpen, GraduationCap } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -71,7 +72,7 @@ export default function LoginPage() {
         <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 py-8 px-6 shadow-2xl rounded-2xl sm:px-10 backdrop-blur-xl space-y-6">
           {error && (
             <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-300 text-sm flex items-center space-x-3">
-              <span className="text-lg">⚠️</span>
+              <AlertCircle className="w-5 h-5 shrink-0" />
               <span>{error}</span>
             </div>
           )}
@@ -83,7 +84,7 @@ export default function LoginPage() {
               onClick={() => handleDemoFill("admin@example.com")}
               className="px-3 py-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-500 hover:text-white text-xs font-bold transition-all text-center flex items-center justify-center space-x-1.5"
             >
-              <span>👑</span>
+              <Shield className="w-3.5 h-3.5" />
               <span>Admin</span>
             </button>
             <button
@@ -91,7 +92,7 @@ export default function LoginPage() {
               onClick={() => handleDemoFill("teacher@example.com")}
               className="px-3 py-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-300 hover:bg-purple-500 hover:text-white text-xs font-bold transition-all text-center flex items-center justify-center space-x-1.5"
             >
-              <span>📚</span>
+              <BookOpen className="w-3.5 h-3.5" />
               <span>Teacher</span>
             </button>
             <button
@@ -99,7 +100,7 @@ export default function LoginPage() {
               onClick={() => handleDemoFill("student@example.com")}
               className="px-3 py-2.5 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-600 dark:text-pink-300 hover:bg-pink-500 hover:text-white text-xs font-bold transition-all text-center flex items-center justify-center space-x-1.5"
             >
-              <span>🎓</span>
+              <GraduationCap className="w-3.5 h-3.5" />
               <span>Student</span>
             </button>
           </div>

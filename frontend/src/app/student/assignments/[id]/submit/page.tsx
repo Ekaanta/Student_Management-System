@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import { StudentAssignmentDto, SubmissionDto } from "@/types";
+import { Clock, ArrowLeft, Send } from "lucide-react";
 
 export default function SubmitAssignmentPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -85,8 +86,8 @@ export default function SubmitAssignmentPage({ params }: { params: Promise<{ id:
 
   if (assignment?.isOverdue) {
     return (
-      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-w-lg mx-auto">
-        <span className="text-4xl">⏳</span>
+      <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-w-lg mx-auto flex flex-col items-center justify-center">
+        <Clock className="w-12 h-12 text-slate-400 mb-2" />
         <h3 className="text-xl font-bold text-slate-900 dark:text-white">Submission Deadline Passed</h3>
         <p className="text-slate-400 text-sm">
           The deadline for <span className="font-bold text-white">"{assignment.title}"</span> was {new Date(assignment.dueDateUtc).toLocaleString()}. New submissions are no longer accepted.
@@ -99,7 +100,7 @@ export default function SubmitAssignmentPage({ params }: { params: Promise<{ id:
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-black text-slate-900 dark:text-white">Submit Assignment</h1>
@@ -109,9 +110,10 @@ export default function SubmitAssignmentPage({ params }: { params: Promise<{ id:
         </div>
         <Link
           href={`/student/assignments/${assignmentId}`}
-          className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors inline-flex items-center space-x-1.5"
         >
-          ← Back to Details
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Details</span>
         </Link>
       </div>
 
@@ -124,7 +126,10 @@ export default function SubmitAssignmentPage({ params }: { params: Promise<{ id:
       {/* Submission Form */}
       <form onSubmit={handleSubmit} className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
         <div className="p-4 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-pink-300 text-xs flex items-center justify-between">
-          <span>⏰ Deadline: {assignment?.dueDateUtc ? new Date(assignment.dueDateUtc).toLocaleString() : ""}</span>
+          <div className="flex items-center space-x-2">
+            <Clock className="w-4 h-4 text-pink-400 shrink-0" />
+            <span>Deadline: {assignment?.dueDateUtc ? new Date(assignment.dueDateUtc).toLocaleString() : ""}</span>
+          </div>
           <span className="font-bold">Ensure you submit before deadline</span>
         </div>
 
@@ -165,9 +170,10 @@ export default function SubmitAssignmentPage({ params }: { params: Promise<{ id:
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-3.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 transition-all"
+            className="px-8 py-3.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 transition-all inline-flex items-center space-x-1.5"
           >
-            {isSubmitting ? "Submitting Work..." : "🚀 Submit Assignment"}
+            <Send className="w-4 h-4" />
+            <span>{isSubmitting ? "Submitting Work..." : "Submit Assignment"}</span>
           </button>
         </div>
       </form>

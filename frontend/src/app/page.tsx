@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Shield, BookOpen, GraduationCap } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -68,7 +69,7 @@ export default function HomePage() {
           {/* Admin Role */}
           <div className="p-8 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-indigo-500/50 transition-all duration-300 group shadow-sm dark:shadow-none">
             <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 transition-transform duration-300">
-              👑
+              <Shield className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Admin Control</h3>
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
@@ -80,7 +81,7 @@ export default function HomePage() {
           {/* Teacher Role */}
           <div className="p-8 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-purple-500/50 transition-all duration-300 group shadow-sm dark:shadow-none">
             <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 transition-transform duration-300">
-              📚
+              <BookOpen className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Teacher Workflows</h3>
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
@@ -92,7 +93,7 @@ export default function HomePage() {
           {/* Student Role */}
           <div className="p-8 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 hover:border-pink-500/50 transition-all duration-300 group shadow-sm dark:shadow-none">
             <div className="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-600 dark:text-pink-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 transition-transform duration-300">
-              🎓
+              <GraduationCap className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Student Portal</h3>
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">

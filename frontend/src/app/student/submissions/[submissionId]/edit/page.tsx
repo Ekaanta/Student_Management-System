@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import { SubmissionDto } from "@/types";
+import { ArrowLeft, Save } from "lucide-react";
 
 export default function EditSubmissionPage({ params }: { params: Promise<{ submissionId: string }> }) {
   const resolvedParams = use(params);
@@ -76,7 +77,7 @@ export default function EditSubmissionPage({ params }: { params: Promise<{ submi
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="w-full space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-black text-slate-900 dark:text-white">Edit Submission</h1>
@@ -86,9 +87,10 @@ export default function EditSubmissionPage({ params }: { params: Promise<{ submi
         </div>
         <Link
           href={`/student/submissions/${submissionId}`}
-          className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors inline-flex items-center space-x-1.5"
         >
-          ← Cancel
+          <ArrowLeft className="w-4 h-4" />
+          <span>Cancel</span>
         </Link>
       </div>
 
