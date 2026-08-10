@@ -107,7 +107,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-slate-200 dark:border-slate-800/80 py-8 px-6 text-center text-slate-500 dark:text-slate-500 text-sm transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-center">
-          <p>© 2026 OnnoRokom Projukti Task Management Platform. Built with ASP.NET Core & Next.js.</p>
+          <p>© 2026 OnnoRokom Projukti Task Management Platform.</p>
         </div>
       </footer>
     </main>
