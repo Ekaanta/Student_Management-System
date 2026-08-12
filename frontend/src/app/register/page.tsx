@@ -43,20 +43,20 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 selection:bg-indigo-500 selection:text-white relative transition-colors duration-300">
-      <div className="absolute top-6 right-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-center py-6 sm:py-12 px-3 sm:px-6 lg:px-8 selection:bg-indigo-500 selection:text-white relative transition-colors duration-300">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
         <ThemeToggle showLabel={true} />
       </div>
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link href="/" className="inline-flex items-center space-x-3 mb-6">
-          <div className="w-12 h-12 rounded-lg bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-xl">
+      <div className="w-full sm:mx-auto sm:max-w-md text-center">
+        <Link href="/" className="inline-flex items-center space-x-3 mb-4 sm:mb-6">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-white text-lg sm:text-xl">
             OP
           </div>
-          <span className="text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+          <span className="text-xl sm:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
             OnnoRokom Projukti
           </span>
         </Link>
-        <h2 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">Create your account</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">Create your account</h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 font-normal">
           Already have an account?{" "}
           <Link href="/login" className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline transition-colors">
@@ -65,8 +65,8 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 py-8 px-6 rounded-lg sm:px-10 backdrop-blur-xl">
+      <div className="mt-6 sm:mt-8 w-full sm:mx-auto sm:max-w-md">
+        <div className="w-full bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/90 p-5 sm:p-10 rounded-2xl backdrop-blur-xl shadow-sm">
           {error && (
             <div className="mb-6 p-4 rounded-md bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-300 text-sm flex items-center space-x-3">
               <AlertCircle className="w-5 h-5 shrink-0" />

@@ -75,19 +75,19 @@ export default function AdminDashboardPage() {
       )}
 
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
           {[...Array(7)].map((_, i) => (
-            <div key={i} className="h-32 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 animate-pulse" />
+            <div key={i} className="h-32 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 animate-pulse w-full" />
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
           {statCards.map((card, idx) => {
             const Icon = card.icon;
             return (
               <div
                 key={idx}
-                className={`p-6 rounded-lg bg-gradient-to-br ${card.color} border ${card.border} backdrop-blur-xl relative overflow-hidden group hover:scale-[1.02] transition-all duration-200`}
+                className={`w-full p-5 sm:p-6 rounded-2xl bg-gradient-to-br ${card.color} border ${card.border} backdrop-blur-xl relative overflow-hidden group hover:scale-[1.02] transition-all duration-200 shadow-sm`}
               >
                 <div className="flex items-center justify-between mb-4">
                   <Icon className={`w-7 h-7 ${card.text}`} />
@@ -101,12 +101,12 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      <div>
+      <div className="w-full">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">Quick Management Shortcuts</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
           <Link
             href="/admin/users"
-            className="p-6 rounded-lg bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all duration-200 group flex flex-col justify-between"
+            className="w-full p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 transition-all duration-200 group flex flex-col justify-between shadow-sm"
           >
             <div>
               <Users className="w-7 h-7 text-indigo-500 mb-3" />
@@ -117,7 +117,7 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/classes"
-            className="p-6 rounded-lg bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 transition-all duration-200 group flex flex-col justify-between"
+            className="w-full p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-amber-500/50 transition-all duration-200 group flex flex-col justify-between shadow-sm"
           >
             <div>
               <School className="w-7 h-7 text-amber-500 mb-3" />
@@ -128,7 +128,7 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/subjects"
-            className="p-6 rounded-lg bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-pink-500/50 transition-all duration-200 group flex flex-col justify-between"
+            className="w-full p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-pink-500/50 transition-all duration-200 group flex flex-col justify-between shadow-sm"
           >
             <div>
               <BookOpen className="w-7 h-7 text-pink-500 mb-3" />
@@ -139,7 +139,7 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/teacher-assignments"
-            className="p-6 rounded-lg bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all duration-200 group flex flex-col justify-between"
+            className="w-full p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 hover:border-purple-500/50 transition-all duration-200 group flex flex-col justify-between shadow-sm"
           >
             <div>
               <GraduationCap className="w-7 h-7 text-purple-500 mb-3" />

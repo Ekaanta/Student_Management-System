@@ -132,7 +132,7 @@ export function UserProfileForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="p-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-8">
+      <form onSubmit={handleSubmit} className="w-full p-5 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-8 shadow-sm">
         {/* Profile Picture Upload Section */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 pb-8 border-b border-slate-100 dark:border-slate-800">
           <div className="relative shrink-0">
